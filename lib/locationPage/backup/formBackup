@@ -1,0 +1,367 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/foundation.dart';
+import 'package:google_maps_place_picker/google_maps_place_picker.dart';
+// import 'package:place_picker/place_picker.dart';
+
+import 'package:virus_tracker/locationPage/locationTimeService.dart';
+import 'package:virus_tracker/locationPage/locationTime.dart';
+
+import 'package:virus_tracker/globals.dart' as globals;
+
+class LocationForm extends StatefulWidget {
+  @override
+  State createState() => LocationFormState();
+}
+
+class LocationFormState extends State<LocationForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  Location submitLocation = Location();
+
+  GoogleMapController mapController;
+  Marker _marker;
+  Set<Marker> _markers = {};
+  LatLng submitLatlng;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add Location'),
+      ),
+      key: _scaffoldKey,
+      body: ListView(children: <Widget>[
+        Column(
+          children: <Widget>[
+            //google map
+            // Stack(
+            //   children: <Widget>[
+            //     // Replace this container with your Map widget
+            //     Container(
+            //       height: MediaQuery.of(context).size.height * 0.5,
+            //       // child: _build_map(), // Mapbox
+            //       child: PlacePicker(
+            //               apiKey: 'AIzaSyBRAqnX5vIqj6ONlaDpWr6UtvNOuMnWxlM',
+            //               useCurrentLocation: true,
+            //               usePlaceDetailSearch: true,
+            //               initialPosition: LatLng(23.0, 121.0),
+            //               onPlacePicked: (result) {
+            //                 print(result);
+            //               },
+            //       ),
+            //     ),
+            //     // Positioned(
+            //     //   top: 10,
+            //     //   right: 15,
+            //     //   left: 15,
+            //     //   child: Container(
+            //     //     color: Colors.white,
+            //     //     child: Row(
+            //     //       children: <Widget>[
+            //     //         Expanded(
+            //     //           child: TextField(
+            //     //             cursorColor: Colors.black,
+            //     //             keyboardType: TextInputType.text,
+            //     //             textInputAction: TextInputAction.go,
+            //     //             decoration: InputDecoration(
+            //     //                 border: InputBorder.none,
+            //     //                 contentPadding:
+            //     //                     EdgeInsets.symmetric(horizontal: 15),
+            //     //                 hintText: "Search..."),
+            //     //           ),
+            //     //         ),
+            //     //       ],
+            //     //     ),
+            //     //   ),
+            //     // ),
+            //   ],
+            // ),
+
+            //form
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 20.0),
+              child: _build_form(),
+            ),
+          ],
+        ),
+      ]),
+    );
+  }
+
+  Widget _build_map() {
+    _getLocation();
+    return GoogleMap(
+      initialCameraPosition: CameraPosition(
+        target: LatLng(23.0, 121.0),
+        zoom: 7,
+      ),
+      gestureRecognizers: Set()
+        ..add(Factory<OneSequenceGestureRecognizer>(
+            () => EagerGestureRecognizer()))
+        ..add(Factory<PanGestureRecognizer>(() => PanGestureRecognizer()))
+        ..add(Factory<ScaleGestureRecognizer>(() => ScaleGestureRecognizer()))
+        ..add(Factory<TapGestureRecognizer>(() => TapGestureRecognizer()))
+        ..add(Factory<VerticalDragGestureRecognizer>(
+            () => VerticalDragGestureRecognizer())),
+      myLocationEnabled: true,
+      onMapCreated: (GoogleMapController controller) {
+        mapController = controller;
+      },
+      onTap: (latlng) {
+        _addMarker(latlng);
+      },
+      markers: _markers,
+    );
+  }
+
+  void _getLocation() async {
+    var currentLocation = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    await mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+            target: LatLng(currentLocation.latitude, currentLocation.longitude),
+            zoom: 15.0),
+      ),
+    );
+  }
+
+  void _addMarker(latlng) {
+    setState(() {
+      submitLatlng = latlng;
+      _marker = Marker(
+        markerId: MarkerId('0'),
+        position: latlng,
+      );
+      _markers.add(_marker);
+    });
+  }
+
+  Widget _build_form() {
+    return Form(
+      key: _formKey,
+      autovalidate: true,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Row(children: <Widget>[
+            Icon(Icons.location_on,color: Colors.grey,),
+            SizedBox(width: 20,),
+            RaisedButton(
+              child: Text('選擇地點'),
+              onPressed: () {
+                _showPlacePicker();
+              },
+            ),
+            SizedBox(width: 20,),
+
+            //-----------location name------------------
+            Flexible(
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  hintText: 'Enter location name',
+                  labelText: 'Location Name',
+                ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Location name cannot be empty';
+                  }
+                  return null;
+                },
+                onSaved: (val) => submitLocation.location_name = val,
+              ),
+            )
+          ]),
+          //-----------datetime from------------------
+          DateTimeField(
+            decoration: const InputDecoration(
+              icon: const Icon(Icons.calendar_today),
+              hintText: 'Enter date time from',
+              labelText: 'Date Time From',
+            ),
+            format: DateFormat("yyyy-MM-dd HH:mm"),
+            onShowPicker: (context, currentValue) async {
+              final date = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime(1900),
+                  initialDate: currentValue ?? DateTime.now(),
+                  lastDate: DateTime(2100));
+              if (date != null) {
+                final time = await showTimePicker(
+                  context: context,
+                  initialTime:
+                      TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                );
+                return DateTimeField.combine(date, time);
+              } else {
+                return currentValue;
+              }
+            },
+            onSaved: (val) => submitLocation.datetime_from = val,
+          ),
+          //-----------datetime to------------------
+
+          DateTimeField(
+            decoration: const InputDecoration(
+              icon: const Icon(Icons.calendar_today),
+              hintText: 'Enter date time to',
+              labelText: 'Date Time To',
+            ),
+            format: DateFormat("yyyy-MM-dd HH:mm"),
+            onShowPicker: (context, currentValue) async {
+              final date = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime(1900),
+                  initialDate: currentValue ?? DateTime.now(),
+                  lastDate: DateTime(2100));
+              if (date != null) {
+                final time = await showTimePicker(
+                  context: context,
+                  initialTime:
+                      TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                );
+                return DateTimeField.combine(date, time);
+              } else {
+                return currentValue;
+              }
+            },
+            onSaved: (val) => submitLocation.datetime_to = val,
+          ),
+
+          DropdownButtonFormField<String>(
+            decoration: const InputDecoration(
+              icon: const Icon(Icons.train),
+              hintText: '輸入車廂號碼',
+              labelText: '車廂號碼',
+            ),
+            value: submitLocation.type,
+            icon: Icon(Icons.arrow_drop_down),
+            iconSize: 24,
+            elevation: 16,
+            onChanged: (String newValue) {
+              if (!mounted) return;
+              setState(() {
+                submitLocation.type = newValue;
+              });
+            },
+            items: <String>[
+              '1',
+              '2',
+              '3',
+              '4',
+              '5',
+              '6',
+              '7',
+              '8',
+              '9',
+              '10',
+              '11',
+              '12'
+            ].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+
+          //-------------people with-----------------------
+          TextFormField(
+            decoration: const InputDecoration(
+              icon: const Icon(Icons.people),
+              hintText: 'Enter people with',
+              labelText: 'People With',
+            ),
+            onSaved: (val) => submitLocation.people_with = val,
+          ),
+
+          Container(
+            margin: EdgeInsets.all(10),
+            child: SizedBox(
+              width: double.infinity,
+              child: RaisedButton(
+                child: const Text('送出'),
+                onPressed: _submitForm,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showPlacePicker() async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PlacePicker(
+          apiKey: 'AIzaSyBRAqnX5vIqj6ONlaDpWr6UtvNOuMnWxlM',
+          useCurrentLocation: true,
+          usePlaceDetailSearch: true,
+          initialPosition: LatLng(23.0, 121.0),
+          onPlacePicked: (result) {
+            print(result.formattedAddress);
+            setState(() {
+              result.geometry.toString();
+              submitLatlng = LatLng(result.geometry.location.lat,result.geometry.location.lng);
+              print(submitLatlng);
+            });
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+    );
+    // Handle the result in your way
+  }
+
+  void _submitForm() {
+    final FormState form = _formKey.currentState;
+    form.save();
+    if (!form.validate()) {
+      showMessage('Form is not valid!  Please review and correct.');
+    // } else if (_marker == null) {
+    //   showMessage('Please select a location on map');
+    } else if (submitLocation.datetime_to
+        .isBefore(submitLocation.datetime_from)) {
+      showMessage('Date time to cannot happen before date time from');
+    } else {
+      submitLocation.latitude = submitLatlng.latitude;
+      submitLocation.longitude = submitLatlng.longitude;
+      //This invokes each onSaved event
+      form.save();
+      print('Form save called, submitLocation is now up to date...');
+      print('location_name: ${submitLocation.location_name}');
+      print('datetime_from: ${submitLocation.datetime_from}');
+      print('datetime_to: ${submitLocation.datetime_to}');
+      print('people_with: ${submitLocation.people_with}');
+      print('========================================');
+      print('Submitting to back end...');
+
+      var locationService = LocationService();
+      locationService.createLocation(submitLocation).then((value) async {
+        if (value == null) {
+          showMessage(
+              'Action failed, please check internet connection...', Colors.red);
+        } else {
+          showMessage('Adding new location...', Colors.blue);
+          globals.locationList.add(value);
+          // globals.locationList = await locationService.getLocations();
+          Navigator.of(context).pop();
+        }
+      });
+    }
+  }
+
+  void showMessage(String message, [MaterialColor color = Colors.red]) {
+    _scaffoldKey.currentState
+        .showSnackBar(SnackBar(backgroundColor: color, content: Text(message,style: TextStyle(color: Colors.white),)));
+  }
+}

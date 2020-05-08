@@ -1,0 +1,358 @@
+import 'dart:async';
+import 'dart:convert' show json;
+
+import 'package:flutter/material.dart';
+
+import "package:http/http.dart" as http;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
+
+import 'package:virus_tracker/Global.dart';
+
+class LocationPage extends StatefulWidget {
+  @override
+  State createState() => LocationPageState();
+}
+
+class LocationPageState extends State<LocationPage> {
+  GoogleMapController mapController;
+  Marker _marker;
+  Set<Marker> _markers = {};
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      top: false,
+      bottom: false,
+      child: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: _build_map(), // Mapbox
+            ),
+            Container(
+              alignment: Alignment.bottomLeft,
+              child: _build_form(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _build_map() {
+    _getLocation();
+    return GoogleMap(
+      initialCameraPosition: CameraPosition(
+        target: LatLng(23.0, 121.0),
+        zoom: 7,
+      ),
+      myLocationEnabled: true,
+      onMapCreated: (GoogleMapController controller) {
+        mapController = controller;
+      },
+      onTap: (latlng) {
+        _addMarker(latlng);
+      },
+      markers: _markers,
+    );
+  }
+
+  void _getLocation() async {
+    var currentLocation = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    await mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+            target: LatLng(currentLocation.latitude, currentLocation.longitude),
+            zoom: 15.0),
+      ),
+    );
+  }
+
+  void _addMarker(latlng) {
+    setState(() {
+      _marker = Marker(
+        markerId: MarkerId('0'),
+        position: latlng,
+      );
+      _markers.add(_marker);
+    });
+  }
+
+  Widget _build_form() {
+    return Form(
+        // key: '_formKey',
+        child: new ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      children: <Widget>[
+        new TextFormField(
+          decoration: const InputDecoration(
+            icon: const Icon(Icons.person),
+            hintText: 'Enter your first and last name',
+            labelText: 'Name',
+          ),
+        ),
+        new TextFormField(
+          decoration: const InputDecoration(
+            icon: const Icon(Icons.calendar_today),
+            hintText: 'Enter your date of birth',
+            labelText: 'Dob',
+          ),
+          keyboardType: TextInputType.datetime,
+        ),
+        new TextFormField(
+          decoration: const InputDecoration(
+            icon: const Icon(Icons.email),
+            hintText: 'Enter a email address',
+            labelText: 'Email',
+          ),
+          keyboardType: TextInputType.emailAddress,
+        ),
+        new Container(
+            padding: const EdgeInsets.only(left: 40.0, top: 20.0),
+            child: new RaisedButton(
+              child: const Text('送出'),
+              onPressed: null,
+            ))
+      ],
+    ));
+  }
+}
+
+// child: Column(
+//   // padding: const EdgeInsets.symmetric(horizontal: 16.0),
+//   children: <Widget>[
+//     //-----------location name------------------
+//     TextFormField(
+//       decoration: const InputDecoration(
+//         icon: const Icon(Icons.location_on),
+//         hintText: 'Enter location name',
+//         labelText: 'Lolcation Name',
+//       ),
+//       validator: (value) {
+//         if (value.isEmpty) {
+//           return 'Location name cannot be empty';
+//         }
+//         return null;
+//       },
+//     ),
+//     //-----------datetime from------------------
+//     DateTimeField(
+//       decoration: const InputDecoration(
+//         icon: const Icon(Icons.calendar_today),
+//         hintText: 'Enter date time from',
+//         labelText: 'Date Time From',
+//       ),
+//       format: DateFormat("yyyy-MM-dd HH:mm"),
+//       onShowPicker: (context, currentValue) async {
+//         final date = await showDatePicker(
+//             context: context,
+//             firstDate: DateTime(1900),
+//             initialDate: currentValue ?? DateTime.now(),
+//             lastDate: DateTime(2100));
+//         if (date != null) {
+//           final time = await showTimePicker(
+//             context: context,
+//             initialTime:
+//                 TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+//           );
+//           return DateTimeField.combine(date, time);
+//         } else {
+//           return currentValue;
+//         }
+//       },
+//     ),
+//     Container(
+//         padding: const EdgeInsets.only(left: 40.0, top: 20.0),
+//         child: RaisedButton(
+//           child: const Text('送出'),
+//           onPressed: null,
+//         )),
+//   ],
+// ),
+
+import 'dart:async';
+import 'dart:convert' show json;
+
+import 'package:flutter/material.dart';
+
+import "package:http/http.dart" as http;
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:flutter/services.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:intl/intl.dart';
+
+import 'package:virus_tracker/locationPage/locationForm.dart';
+import 'package:virus_tracker/locationPage/locationTimeService.dart';
+
+import 'package:virus_tracker/globals.dart' as globals;
+
+import 'locationTime.dart';
+
+class LocationList extends StatefulWidget {
+  @override
+  State createState() => LocationListState();
+}
+
+class LocationListState extends State<LocationList> {
+  LocationService locationService = LocationService();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  var updatePeriod;
+
+  LocationListState() {
+    updatePeriod = Timer.periodic(Duration(seconds: 1), (timer) {
+      updateList();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: _buildLocationList(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Increment',
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => LocationForm()));
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+
+  Future<void> updateList() async {
+    await locationService.getLocations().then((val) => setState(() {
+          updatePeriod.cancel();
+          if (val != null) {
+            globals.locationList = val;
+            updatePeriod = Timer.periodic(Duration(seconds: 60), (timer) {
+              updateList();
+            });
+          } else {
+            updatePeriod = Timer.periodic(Duration(seconds: 1), (timer) {
+              updateList();
+            });
+          }
+        }));
+  }
+
+  Widget _buildLocationList() {
+    if (globals.locationList.isEmpty) {
+      // showMessage('There is currently no location in the list yet');
+    }
+    return ListView.separated(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.all(16),
+      itemCount: globals.locationList.length,
+      itemBuilder: (BuildContext _context, int i) {
+        return _buildRow(globals.locationList[i]);
+      },
+      separatorBuilder: (BuildContext context, int index) => const Divider(),
+    );
+  }
+
+  Widget _buildRow(Location location) {
+    return ListTile(
+      leading: _infectLevelIcon(location.infection_level),
+      title: Text(location.location_name),
+      subtitle: Text(
+          DateFormat('yyyy-MM-dd HH:mm:ss').format(location.datetime_from) +
+              '~' +
+              DateFormat('yyyy-MM-dd HH:mm:ss').format(location.datetime_to)),
+      trailing: IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () {
+            _deleteCheck(location);
+            locationService.getLocations().then((val) => setState(() {
+                  globals.locationList = val;
+                }));
+          }),
+      onTap: null,
+    );
+  }
+
+  Icon _infectLevelIcon(infect_level) {
+    Color levelColor;
+    if (infect_level == 3) {
+      levelColor = Colors.red;
+    } else if (infect_level == 2) {
+      levelColor = Colors.orange;
+    } else if (infect_level == 1) {
+      levelColor = Colors.yellow;
+    } else {
+      levelColor = Colors.green;
+    }
+    return Icon(Icons.brightness_1, color: levelColor);
+  }
+
+  Future<void> _deleteCheck(Location location) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Are you sure you want to delete \"' +
+              location.location_name +
+              '\" ?'),
+          content: SingleChildScrollView(
+            child: ListBody(children: <Widget>[
+              Text('This action cannot be undone.'),
+            ]),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('no'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                locationService.deleteLocations(location);
+                updateList();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     // Add from here...
+  //     appBar: AppBar(
+  //       title: Text('Startup Name Generator'),
+  //       actions: <Widget>[
+  //         IconButton(icon: Icon(Icons.list), onPressed: _pushSaved),
+  //       ],
+  //     ),
+  //     body: _buildSuggestions(),
+  //   );
+  // }
+
+ void showMessage(String message, [MaterialColor color = Colors.red]) {
+    _scaffoldKey.currentState
+        .showSnackBar(SnackBar(backgroundColor: color, content: Text(message,style: TextStyle(color: Colors.white),)));
+  }
+}
+

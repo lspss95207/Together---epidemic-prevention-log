@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1076578953757",
+    "firebase_url": "https://triple-bounty-271817.firebaseio.com",
+    "project_id": "triple-bounty-271817",
+    "storage_bucket": "triple-bounty-271817.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076578953757:android:c5c20ee80047b9cd65b4f4",
+        "android_client_info": {
+          "package_name": "com.together.fightepidemic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076578953757-2g35pak8ll8vpb2rurbkrcq7moqq1hdg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.virus_tracker",
+            "certificate_hash": "ddf3b065c6ba722587162e1ed24d1d5434bd5278"
+          }
+        },
+        {
+          "client_id": "1076578953757-3l3e30agahbg41ggber1feiu7h16rtn7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBRAqnX5vIqj6ONlaDpWr6UtvNOuMnWxlM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076578953757-3l3e30agahbg41ggber1feiu7h16rtn7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

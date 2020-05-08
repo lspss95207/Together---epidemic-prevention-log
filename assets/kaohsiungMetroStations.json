@@ -1,0 +1,1237 @@
+[
+    {
+        "StationUID": "KRTC-R3",
+        "StationID": "R3",
+        "StationName": {
+            "Zh_tw": "小港",
+            "En": "Siaogang"
+        },
+        "StationPosition": {
+            "PositionLat": 22.564822,
+            "PositionLon": 120.35384
+        },
+        "StationAddress": "高雄市小港區沿海一路280號地下一樓",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 191.8,
+                "y": 157.3
+            },
+            "radius": 4
+        }
+    },
+    {
+        "StationUID": "KRTC-R4",
+        "StationID": "R4",
+        "StationName": {
+            "Zh_tw": "高雄國際機場",
+            "En": "Kaohsiung International Airport"
+        },
+        "StationPosition": {
+            "PositionLat": 22.570199,
+            "PositionLon": 120.342125
+        },
+        "StationAddress": "高雄市小港區中山四路2之2號地下一樓",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 168.6,
+                "y": 157.3
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R4A",
+        "StationID": "R4A",
+        "StationName": {
+            "Zh_tw": "草衙",
+            "En": "Caoya"
+        },
+        "StationPosition": {
+            "PositionLat": 22.580363,
+            "PositionLon": 120.328443
+        },
+        "StationAddress": "高雄市前鎮區翠亨南路555號地下一樓",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 147.3,
+                "y": 157.3
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R5",
+        "StationID": "R5",
+        "StationName": {
+            "Zh_tw": "前鎮高中",
+            "En": "Cianjhen Senior High School"
+        },
+        "StationPosition": {
+            "PositionLat": 22.588356,
+            "PositionLon": 120.319551
+        },
+        "StationAddress": "高雄市前鎮區翠亨北路225號地下一樓",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 133.8,
+                "y": 151.3
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R6",
+        "StationID": "R6",
+        "StationName": {
+            "Zh_tw": "凱旋",
+            "En": "Kaisyuan"
+        },
+        "StationPosition": {
+            "PositionLat": 22.596856,
+            "PositionLon": 120.315142
+        },
+        "StationAddress": "高雄市前鎮區中山三路1號地下一樓",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 126.1,
+                "y": 143.8
+            },
+            "radius": 3.5
+        }
+    },
+    {
+        "StationUID": "KRTC-R7",
+        "StationID": "R7",
+        "StationName": {
+            "Zh_tw": "獅甲",
+            "En": "Shihjia"
+        },
+        "StationPosition": {
+            "PositionLat": 22.60587,
+            "PositionLon": 120.308189
+        },
+        "StationAddress": "高雄市前鎮區中山三路150號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 112.9,
+                "y": 130.1
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R8",
+        "StationID": "R8",
+        "StationName": {
+            "Zh_tw": "三多商圈",
+            "En": "Sanduo Shopping District"
+        },
+        "StationPosition": {
+            "PositionLat": 22.614011,
+            "PositionLon": 120.304499
+        },
+        "StationAddress": "高雄市前鎮區中山二路268號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 117.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R9",
+        "StationID": "R9",
+        "StationName": {
+            "Zh_tw": "中央公園",
+            "En": "Central Park"
+        },
+        "StationPosition": {
+            "PositionLat": 22.624628,
+            "PositionLon": 120.301151
+        },
+        "StationAddress": "高雄市前金區中山一路11號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 110
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R10",
+        "StationID": "R10",
+        "StationName": {
+            "Zh_tw": "美麗島",
+            "En": "Formosa Boulevard"
+        },
+        "StationPosition": {
+            "PositionLat": 22.631387,
+            "PositionLon": 120.301957
+        },
+        "StationAddress": "高雄市新興區中山一路115號地下一樓",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 96.4
+            },
+            "radius": 3.5
+        }
+    },
+    {
+        "StationUID": "KRTC-R11",
+        "StationID": "R11",
+        "StationName": {
+            "Zh_tw": "高雄車站",
+            "En": "Kaohsiung Main Station"
+        },
+        "StationPosition": {
+            "PositionLat": 22.639769,
+            "PositionLon": 120.302664
+        },
+        "StationAddress": "高雄市三民區建國二路320號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 88.8
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R12",
+        "StationID": "R12",
+        "StationName": {
+            "Zh_tw": "後驛",
+            "En": "Houyi"
+        },
+        "StationPosition": {
+            "PositionLat": 22.648314,
+            "PositionLon": 120.303361
+        },
+        "StationAddress": "高雄市三民區博愛一路220號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 83.2
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R13",
+        "StationID": "R13",
+        "StationName": {
+            "Zh_tw": "凹子底",
+            "En": "Aozihdi"
+        },
+        "StationPosition": {
+            "PositionLat": 22.657126,
+            "PositionLon": 120.303104
+        },
+        "StationAddress": "高雄市鼓山區博愛二路21號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 77.7
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R14",
+        "StationID": "R14",
+        "StationName": {
+            "Zh_tw": "巨蛋",
+            "En": "Kaohsiung Arena"
+        },
+        "StationPosition": {
+            "PositionLat": 22.666135,
+            "PositionLon": 120.303308
+        },
+        "StationAddress": "高雄市左營區博愛二路485號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 72.2
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R15",
+        "StationID": "R15",
+        "StationName": {
+            "Zh_tw": "生態園區",
+            "En": "Ecological District"
+        },
+        "StationPosition": {
+            "PositionLat": 22.676738,
+            "PositionLon": 120.306618
+        },
+        "StationAddress": "高雄市左營區博愛三路435號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 66.8
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R16",
+        "StationID": "R16",
+        "StationName": {
+            "Zh_tw": "左營",
+            "En": "Zuoying"
+        },
+        "StationPosition": {
+            "PositionLat": 22.688073,
+            "PositionLon": 120.309219
+        },
+        "StationAddress": "高雄市左營區高鐵路107號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 61.3
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R17",
+        "StationID": "R17",
+        "StationName": {
+            "Zh_tw": "世運",
+            "En": "World Game"
+        },
+        "StationPosition": {
+            "PositionLat": 22.701622,
+            "PositionLon": 120.302526
+        },
+        "StationAddress": "高雄市楠梓區左楠路1號",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 55.8
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R18",
+        "StationID": "R18",
+        "StationName": {
+            "Zh_tw": "油廠國小",
+            "En": "Oil Refinery Elementary School"
+        },
+        "StationPosition": {
+            "PositionLat": 22.708479,
+            "PositionLon": 120.302325
+        },
+        "StationAddress": "高雄市楠梓區左楠路6號",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 50.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R19",
+        "StationID": "R19",
+        "StationName": {
+            "Zh_tw": "楠梓加工區",
+            "En": "Nanzih Export Processing Zone"
+        },
+        "StationPosition": {
+            "PositionLat": 22.718671,
+            "PositionLon": 120.307133
+        },
+        "StationAddress": "高雄市楠梓區加昌路598號",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 44.9
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R20",
+        "StationID": "R20",
+        "StationName": {
+            "Zh_tw": "後勁",
+            "En": "Houjing"
+        },
+        "StationPosition": {
+            "PositionLat": 22.7223,
+            "PositionLon": 120.316236
+        },
+        "StationAddress": "高雄市楠梓區加昌路178號",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 39.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R21",
+        "StationID": "R21",
+        "StationName": {
+            "Zh_tw": "都會公園",
+            "En": "Metropolitan Park"
+        },
+        "StationPosition": {
+            "PositionLat": 22.729403,
+            "PositionLon": 120.320978
+        },
+        "StationAddress": "高雄市楠梓區高楠公路1835號",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 33.9
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R22",
+        "StationID": "R22",
+        "StationName": {
+            "Zh_tw": "青埔",
+            "En": "Cingpu"
+        },
+        "StationPosition": {
+            "PositionLat": 22.744399,
+            "PositionLon": 120.317679
+        },
+        "StationAddress": "高雄市橋頭區經武路20號",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 28.4
+            },
+            "radius": 3
+        }
+
+    },
+    {
+        "StationUID": "KRTC-R22A",
+        "StationID": "R22A",
+        "StationName": {
+            "Zh_tw": "橋頭糖廠",
+            "En": "Ciaotou Sugar Refinery"
+        },
+        "StationPosition": {
+            "PositionLat": 22.753398,
+            "PositionLon": 120.314466
+        },
+        "StationAddress": "高雄市橋頭區興糖路19號",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 22.9
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R23",
+        "StationID": "R23",
+        "StationName": {
+            "Zh_tw": "橋頭火車站",
+            "En": "Ciaotou Station"
+        },
+        "StationPosition": {
+            "PositionLat": 22.760452,
+            "PositionLon": 120.310936
+        },
+        "StationAddress": "高雄市橋頭區站前街12之1號",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 17.5
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-R24",
+        "StationID": "R24",
+        "StationName": {
+            "Zh_tw": "南岡山",
+            "En": "Gangshan South"
+        },
+        "StationPosition": {
+            "PositionLat": 22.780544,
+            "PositionLon": 120.301774
+        },
+        "StationAddress": "高雄市岡山區大遼里9鄰中山南路2號",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 95.3,
+                "y": 6.3
+            },
+            "radius": 4
+        }
+    },
+    {
+        "StationUID": "KRTC-O1",
+        "StationID": "O1",
+        "StationName": {
+            "Zh_tw": "西子灣",
+            "En": "Sizihwan"
+        },
+        "StationPosition": {
+            "PositionLat": 22.621544,
+            "PositionLon": 120.274541
+        },
+        "StationAddress": "高雄市鼓山區臨海二路17-1號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 70.5,
+                "y": 104.8
+            },
+            "radius": 3.5
+        }
+    },
+    {
+        "StationUID": "KRTC-O2",
+        "StationID": "O2",
+        "StationName": {
+            "Zh_tw": "鹽埕埔",
+            "En": "Yanchengpu"
+        },
+        "StationPosition": {
+            "PositionLat": 22.623538,
+            "PositionLon": 120.283728
+        },
+        "StationAddress": "高雄市鹽埕區大勇路96號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 82.2,
+                "y": 105
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-O4",
+        "StationID": "O4",
+        "StationName": {
+            "Zh_tw": "市議會",
+            "En": "City Council"
+        },
+        "StationPosition": {
+            "PositionLat": 22.629002,
+            "PositionLon": 120.294886
+        },
+        "StationAddress": "高雄市前金區中正四路192-1號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 91.3,
+                "y": 100
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-O5",
+        "StationID": "O5",
+        "StationName": {
+            "Zh_tw": "美麗島",
+            "En": "Formosa Boulevard"
+        },
+        "StationPosition": {
+            "PositionLat": 22.631387,
+            "PositionLon": 120.301957
+        },
+        "StationAddress": "高雄市新興區中山一路115號地下一樓",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 103.7,
+                "y": 96.4
+            },
+            "radius": 3.5
+        }
+    },
+    {
+        "StationUID": "KRTC-O6",
+        "StationID": "O6",
+        "StationName": {
+            "Zh_tw": "信義國小",
+            "En": "Sinyi Elementary School"
+        },
+        "StationPosition": {
+            "PositionLat": 22.630745,
+            "PositionLon": 120.311622
+        },
+        "StationAddress": "高雄市新興區中正三路32-1號地下一樓",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 116.9,
+                "y": 96.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-O7",
+        "StationID": "O7",
+        "StationName": {
+            "Zh_tw": "文化中心",
+            "En": "Cultural Center"
+        },
+        "StationPosition": {
+            "PositionLat": 22.630292,
+            "PositionLon": 120.317599
+        },
+        "StationAddress": "高雄市苓雅區中正二路45號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 128.5,
+                "y": 96.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-O8",
+        "StationID": "O8",
+        "StationName": {
+            "Zh_tw": "五塊厝",
+            "En": "Wukuaicuo"
+        },
+        "StationPosition": {
+            "PositionLat": 22.629331,
+            "PositionLon": 120.328381
+        },
+        "StationAddress": "高雄市苓雅區中正一路286號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 140.2,
+                "y": 96.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-O9",
+        "StationID": "O9",
+        "StationName": {
+            "Zh_tw": "技擊館",
+            "En": "Martial Arts Stadium"
+        },
+        "StationPosition": {
+            "PositionLat": 22.627291,
+            "PositionLon": 120.334523
+        },
+        "StationAddress": "高雄市苓雅區中正一路99號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 151.7,
+                "y": 96.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-O10",
+        "StationID": "O10",
+        "StationName": {
+            "Zh_tw": "衛武營",
+            "En": "Weiwuying"
+        },
+        "StationPosition": {
+            "PositionLat": 22.625162,
+            "PositionLon": 120.34095
+        },
+        "StationAddress": "高雄市苓雅區中正一路2號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 164.3,
+                "y": 96.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-O11",
+        "StationID": "O11",
+        "StationName": {
+            "Zh_tw": "鳳山西站",
+            "En": "Fongshan West"
+        },
+        "StationPosition": {
+            "PositionLat": 22.625331,
+            "PositionLon": 120.348267
+        },
+        "StationAddress": "高雄市鳳山區自由路281號地下層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 177.9,
+                "y": 96.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-O12",
+        "StationID": "O12",
+        "StationName": {
+            "Zh_tw": "鳳山",
+            "En": "Fongshan"
+        },
+        "StationPosition": {
+            "PositionLat": 22.625994,
+            "PositionLon": 120.355262
+        },
+        "StationAddress": "高雄市鳳山區光遠路446號地下層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 191.4,
+                "y": 96.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-O13",
+        "StationID": "O13",
+        "StationName": {
+            "Zh_tw": "大東",
+            "En": "Dadong"
+        },
+        "StationPosition": {
+            "PositionLat": 22.625197,
+            "PositionLon": 120.363384
+        },
+        "StationAddress": "高雄市鳳山區光遠路226號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 205,
+                "y": 96.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-O14",
+        "StationID": "O14",
+        "StationName": {
+            "Zh_tw": "鳳山國中",
+            "En": "Fongshan Junior High School"
+        },
+        "StationPosition": {
+            "PositionLat": 22.624915,
+            "PositionLon": 120.372477
+        },
+        "StationAddress": "高雄市鳳山區中山東路225號地下一層",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 218.6,
+                "y": 96.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KRTC-OT1",
+        "StationID": "OT1",
+        "StationName": {
+            "Zh_tw": "大寮",
+            "En": "Daliao"
+        },
+        "StationPosition": {
+            "PositionLat": 22.622423,
+            "PositionLon": 120.389773
+        },
+        "StationAddress": "高雄市大寮區捷西路300號",
+        "BikeAllowOnHoliday": true,
+        "SrcUpdateTime": "2016-11-23T10:59:41+08:00",
+        "UpdateTime": "2017-03-27T12:04:28+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 239.9,
+                "y": 100.4
+            },
+            "radius": 4
+        }
+    },
+    {
+        "StationUID": "KLRT-C14",
+        "StationID": "C14",
+        "StationName": {
+            "Zh_tw": "哈瑪星",
+            "En": "Hamasen"
+        },
+        "StationPosition": {
+            "PositionLat": 22.621617,
+            "PositionLon": 120.275849
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 70.5,
+                "y": 104.8
+            },
+            "radius": 3.5
+        }
+    },
+    {
+        "StationUID": "KLRT-C8",
+        "StationID": "C8",
+        "StationName": {
+            "Zh_tw": "高雄展覽館",
+            "En": "Kaohsiung Exhibition Center"
+        },
+        "StationPosition": {
+            "PositionLat": 22.610133,
+            "PositionLon": 120.298022
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 97.9,
+                "y": 141.4
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KLRT-C3",
+        "StationID": "C3",
+        "StationName": {
+            "Zh_tw": "前鎮之星",
+            "En": "Cianjhen Star"
+        },
+        "StationPosition": {
+            "PositionLat": 22.595503,
+            "PositionLon": 120.315368
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 126.1,
+                "y": 143.8
+            },
+            "radius": 3.5
+        }
+    },
+    {
+        "StationUID": "KLRT-C10",
+        "StationID": "C10",
+        "StationName": {
+            "Zh_tw": "光榮碼頭",
+            "En": "Glory Pier"
+        },
+        "StationPosition": {
+            "PositionLat": 22.616805,
+            "PositionLon": 120.293234
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 87.7,
+                "y": 131
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KLRT-C2",
+        "StationID": "C2",
+        "StationName": {
+            "Zh_tw": "凱旋瑞田",
+            "En": "Kaisyuan Rueitian"
+        },
+        "StationPosition": {
+            "PositionLat": 22.599533,
+            "PositionLon": 120.319799
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 135.4,
+                "y": 134.3
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KLRT-C9",
+        "StationID": "C9",
+        "StationName": {
+            "Zh_tw": "旅運中心",
+            "En": "Cruise Terminal"
+        },
+        "StationPosition": {
+            "PositionLat": 22.611643,
+            "PositionLon": 120.293438
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 92.7,
+                "y": 136.1
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KLRT-C13",
+        "StationID": "C13",
+        "StationName": {
+            "Zh_tw": "駁二蓬萊",
+            "En": "Penglai Pier-2"
+        },
+        "StationPosition": {
+            "PositionLat": 22.6205,
+            "PositionLon": 120.279923
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 72.3,
+                "y": 115.9
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KLRT-C12",
+        "StationID": "C12",
+        "StationName": {
+            "Zh_tw": "駁二大義",
+            "En": "Dayi Pier-2"
+        },
+        "StationPosition": {
+            "PositionLat": 22.618562,
+            "PositionLon": 120.284204
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 77.4,
+                "y": 121
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KLRT-C5",
+        "StationID": "C5",
+        "StationName": {
+            "Zh_tw": "夢時代",
+            "En": "Dream Mall"
+        },
+        "StationPosition": {
+            "PositionLat": 22.594886,
+            "PositionLon": 120.305004
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 113.2,
+                "y": 156.1
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KLRT-C1",
+        "StationID": "C1",
+        "StationName": {
+            "Zh_tw": "籬仔內",
+            "En": "Lizihnei"
+        },
+        "StationPosition": {
+            "PositionLat": 22.604625,
+            "PositionLon": 120.324651
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 146.4,
+                "y": 123.8
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KLRT-C6",
+        "StationID": "C6",
+        "StationName": {
+            "Zh_tw": "經貿園區",
+            "En": "Commerce and Trade Park"
+        },
+        "StationPosition": {
+            "PositionLat": 22.600961,
+            "PositionLon": 120.30266
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 108.1,
+                "y": 151.7
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KLRT-C4",
+        "StationID": "C4",
+        "StationName": {
+            "Zh_tw": "凱旋中華",
+            "En": "Kaisyuan Jhonghua"
+        },
+        "StationPosition": {
+            "PositionLat": 22.593656,
+            "PositionLon": 120.310517
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 119.7,
+                "y": 149.8
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KLRT-C7",
+        "StationID": "C7",
+        "StationName": {
+            "Zh_tw": "軟體園區",
+            "En": "Software Technology Park"
+        },
+        "StationPosition": {
+            "PositionLat": 22.605684,
+            "PositionLon": 120.300832
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 102.9,
+                "y": 146.7
+            },
+            "radius": 3
+        }
+    },
+    {
+        "StationUID": "KLRT-C11",
+        "StationID": "C11",
+        "StationName": {
+            "Zh_tw": "真愛碼頭",
+            "En": "Love Pier"
+        },
+        "StationPosition": {
+            "PositionLat": 22.619315,
+            "PositionLon": 120.289466
+        },
+        "BikeAllowOnHoliday": false,
+        "SrcUpdateTime": "2019-01-29T12:00:00+08:00",
+        "UpdateTime": "2019-01-29T12:00:00+08:00",
+        "VersionID": 1,
+        "mapIcon": {
+            "center": {
+                "x": 82.6,
+                "y": 126
+            },
+            "radius": 3
+        }
+    }
+]
