@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 
 
-import 'package:google_sign_in/google_sign_in.dart';
+
 
 import 'package:virus_tracker/locationPage/location.dart';
 import 'package:virus_tracker/thsrPage/thsr.dart';
@@ -14,12 +14,6 @@ import 'package:virus_tracker/metroPage/metro.dart';
 import 'package:virus_tracker/taxiPage/taxi.dart';
 
 
-
-
-
-
-GoogleSignIn googleSignIn = GoogleSignIn();
-GoogleSignInAccount currentUser;
 
 
 String id_token;
@@ -82,15 +76,3 @@ ThemeData lightTheme = ThemeData(
 String language;
 String theme;
 bool delete21;
-
-String updateIDToken() {
-  googleSignIn.signInSilently().then((result) {
-    result.authentication.then((googlekey) {
-      String id_token_tmp = googlekey.idToken;
-      if(id_token_tmp != null){
-        id_token = id_token_tmp;
-      }
-    });
-  });
-  return id_token;
-}

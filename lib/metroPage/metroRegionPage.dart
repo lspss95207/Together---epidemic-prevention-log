@@ -4,7 +4,7 @@ import 'dart:convert' show json;
 import 'package:flutter/material.dart';
 
 import "package:http/http.dart" as http;
-import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:virus_tracker/locationPage/locationForm.dart';
 
 import 'package:virus_tracker/globals.dart' as globals;
