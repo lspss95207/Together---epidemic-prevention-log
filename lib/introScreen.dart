@@ -51,7 +51,7 @@ class _IntroScreenState extends State<IntroScreen> {
   void _setLanguage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String language = await prefs.getString('language_setting') ?? 'System';
-    String theme = await prefs.getString('theme_setting') ?? 'System';
+    String theme = await prefs.getString('theme_setting') ?? 'Dark';
     bool delete21 = await prefs.getBool('delete21_setting') ?? false;
 
     globals.language = language;
