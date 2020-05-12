@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To access your current location.</string>
+	<string>To access your current location. The app will still be funtional if you reject, but will be more inconvenient for you to enter location data.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -45,5 +45,17 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<string>YES</string>
+	<key>NSContactsUsageDescription</key>
+	<string>The app will not use contacts info, please reject the access. You should never see this, please contact us</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>The app will not use calendars info, please reject the access. You should never see this, please contact us</string>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>The app will not use music usage info, please reject the access. You should never see this, please contact us</string>
+	<key>NSMotionUsageDescription</key>
+	<string>The app will not use motion usage info, please reject the access. You should never see this, please contact us</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>The app will not use speech recognition info, please reject the access. You should never see this, please contact us</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>To access your current location. The app will still be funtional if you reject, but will be more inconvenient for you to enter location data.</string>
 </dict>
 </plist>

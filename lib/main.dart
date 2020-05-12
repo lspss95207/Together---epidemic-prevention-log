@@ -47,6 +47,7 @@ void main() {
       },
       themedWidgetBuilder: (context, theme) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: theme,
           localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,
