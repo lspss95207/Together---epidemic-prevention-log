@@ -85,9 +85,10 @@ class SettingPageState extends State<SettingPage> {
                   language = _language;
                 }
                 await allTranslations.setNewLanguage(language);
-                globals.language = _language;
-                Navigator.pushReplacementNamed(context, '/SettingPage');
-
+                setState(() {
+                  globals.language = _language;
+                  Navigator.pushReplacementNamed(context, '/SettingPage');
+                });
               },
               items: (<String>['System'] +
                       allTranslations.supportedLanguages.keys.toList())
@@ -166,7 +167,8 @@ class SettingPageState extends State<SettingPage> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text(allTranslations.text('Caution! The data submitted before the past 21 days will be deleted automatically. Are you sure?')),
+                        title: Text(allTranslations.text(
+                            'Caution! The data submitted before the past 21 days will be deleted automatically. Are you sure?')),
                         actions: <Widget>[
                           FlatButton(
                             child: Text(allTranslations.text('Confirm')),
