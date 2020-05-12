@@ -91,7 +91,7 @@ class HomePageState extends State<HomePage> {
                           Email email = Email(
                             body: '',
                             subject: '意見回覆',
-                            recipients: ['2020fightcovid19@gmail.com'],
+                            recipients: ['togetherfightepidemic@gmail.com'],
                             isHTML: false,
                           );
                           String platformResponse;
@@ -149,46 +149,46 @@ class HomePageState extends State<HomePage> {
                         //   value: 'tutorial',
                         //   child: Text(allTranslations.text('Tutorial')),
                         // ),
-                        PopupMenuItem<String>(
-                          value: 'facebook',
-                          child: Row(children: <Widget>[
-                            Image(
-                                image: AssetImage(
-                                    (Theme.of(context).brightness ==
-                                            Brightness.dark)
-                                        ? 'assets/fb_night.png'
-                                        : 'assets/fb_day.png'),
-                                height: 20.0),
-                            Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Text('Facebook',
-                                    style: TextStyle(
-                                        color: (Theme.of(context).brightness ==
-                                                Brightness.dark)
-                                            ? Theme.of(context).indicatorColor
-                                            : Theme.of(context).primaryColor))),
-                          ]),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'instagram',
-                          child: Row(children: <Widget>[
-                            Image(
-                                image: AssetImage(
-                                    (Theme.of(context).brightness ==
-                                            Brightness.dark)
-                                        ? 'assets/IG_night.png'
-                                        : 'assets/IG_day.png'),
-                                height: 20.0),
-                            Padding(
-                                padding: const EdgeInsets.only(left: 15),
-                                child: Text('Instagram',
-                                    style: TextStyle(
-                                        color: (Theme.of(context).brightness ==
-                                                Brightness.dark)
-                                            ? Theme.of(context).accentColor
-                                            : Theme.of(context).primaryColor))),
-                          ]),
-                        ),
+                        // PopupMenuItem<String>(
+                        //   value: 'facebook',
+                        //   child: Row(children: <Widget>[
+                        //     Image(
+                        //         image: AssetImage(
+                        //             (Theme.of(context).brightness ==
+                        //                     Brightness.dark)
+                        //                 ? 'assets/fb_night.png'
+                        //                 : 'assets/fb_day.png'),
+                        //         height: 20.0),
+                        //     Padding(
+                        //         padding: const EdgeInsets.only(left: 15),
+                        //         child: Text('Facebook',
+                        //             style: TextStyle(
+                        //                 color: (Theme.of(context).brightness ==
+                        //                         Brightness.dark)
+                        //                     ? Theme.of(context).indicatorColor
+                        //                     : Theme.of(context).primaryColor))),
+                        //   ]),
+                        // ),
+                        // PopupMenuItem<String>(
+                        //   value: 'instagram',
+                        //   child: Row(children: <Widget>[
+                        //     Image(
+                        //         image: AssetImage(
+                        //             (Theme.of(context).brightness ==
+                        //                     Brightness.dark)
+                        //                 ? 'assets/IG_night.png'
+                        //                 : 'assets/IG_day.png'),
+                        //         height: 20.0),
+                        //     Padding(
+                        //         padding: const EdgeInsets.only(left: 15),
+                        //         child: Text('Instagram',
+                        //             style: TextStyle(
+                        //                 color: (Theme.of(context).brightness ==
+                        //                         Brightness.dark)
+                        //                     ? Theme.of(context).accentColor
+                        //                     : Theme.of(context).primaryColor))),
+                        //   ]),
+                        // ),
                       ],
                     )),
               ]),
