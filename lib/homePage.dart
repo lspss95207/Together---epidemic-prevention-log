@@ -113,22 +113,30 @@ class HomePageState extends State<HomePage> {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
                                   SettingPage()));
+                        } else if (val == 'privacy') {
+                          const url =
+                              'https://together-epidemic-pr.flycricket.io/privacy.html';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
                         } else if (val == 'facebook') {
-                          const url =
-                              'https://www.facebook.com/%E4%B8%80%E8%B5%B7-%E5%BF%AB%E9%80%9F%E7%B4%80%E9%8C%84%E8%A1%8C%E8%B9%A4%E6%88%B0%E5%8B%9Dcovid-19-115060663529087';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                          } else {
-                            throw 'Could not launch $url';
-                          }
+                          // const url =
+                          //     'https://www.facebook.com/%E4%B8%80%E8%B5%B7-%E5%BF%AB%E9%80%9F%E7%B4%80%E9%8C%84%E8%A1%8C%E8%B9%A4%E6%88%B0%E5%8B%9Dcovid-19-115060663529087';
+                          // if (await canLaunch(url)) {
+                          //   await launch(url);
+                          // } else {
+                          //   throw 'Could not launch $url';
+                          // }
                         } else if (val == 'instagram') {
-                          const url =
-                              'https://www.instagram.com/2020.fightcovid19/';
-                          if (await canLaunch(url)) {
-                            await launch(url);
-                          } else {
-                            throw 'Could not launch $url';
-                          }
+                          // const url =
+                          //     'https://www.instagram.com/2020.fightcovid19/';
+                          // if (await canLaunch(url)) {
+                          //   await launch(url);
+                          // } else {
+                          //   throw 'Could not launch $url';
+                          // }
                         }
                       },
                       itemBuilder: (BuildContext context) =>
@@ -144,6 +152,10 @@ class HomePageState extends State<HomePage> {
                         PopupMenuItem<String>(
                           value: 'feedback',
                           child: Text(allTranslations.text('Feedback')),
+                        ),
+                        PopupMenuItem<String>(
+                          value: 'privacy',
+                          child: Text(allTranslations.text('Privacy Policy')),
                         ),
                         // PopupMenuItem<String>(
                         //   value: 'tutorial',
