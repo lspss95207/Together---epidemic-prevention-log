@@ -50,7 +50,7 @@ PODS:
     - Flutter
   - permission (0.0.1):
     - Flutter
-  - "permission_handler (5.0.0+hotfix.3)":
+  - "permission_handler (5.0.0+hotfix.5)":
     - Flutter
   - searchable_dropdown (1.1.1):
     - Flutter
@@ -165,7 +165,7 @@ SPEC CHECKSUMS:
   path_provider: fb74bd0465e96b594bb3b5088ee4a4e7bb1f2a9d
   path_provider_macos: f760a3c5b04357c380e2fddb6f9db6f3015897e0
   permission: c186483e23779d53def6b55986323494927c22c8
-  permission_handler: 4a985b5448897c27fdeadde84f7452520c0e6c58
+  permission_handler: 6226fcb78b97c7c7458a95c7346a11d5184fec12
   searchable_dropdown: 5058be32fdc5e0481d300ff2087129072e71bd62
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
   shared_preferences_macos: f3f29b71ccbb56bf40c9dd6396c9acf15e214087
