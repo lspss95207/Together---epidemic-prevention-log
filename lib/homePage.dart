@@ -91,7 +91,7 @@ class HomePageState extends State<HomePage> {
                           Email email = Email(
                             body: '',
                             subject: '意見回覆',
-                            recipients: ['togetherfightepidemic@gmail.com'],
+                            recipients: ['togethertraveldiary@gmail.com'],
                             isHTML: false,
                           );
                           String platformResponse;
@@ -115,7 +115,7 @@ class HomePageState extends State<HomePage> {
                                   SettingPage()));
                         } else if (val == 'privacy') {
                           const url =
-                              'https://together-epidemic-pr.flycricket.io/privacy.html';
+                              'https://together-travel-lo-0.flycricket.io/privacy.html';
                           if (await canLaunch(url)) {
                             await launch(url);
                           } else {
