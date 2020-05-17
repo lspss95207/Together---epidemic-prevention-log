@@ -7,7 +7,6 @@ import "package:http/http.dart" as http;
 
 import 'package:virus_tracker/locationPage/locationForm.dart';
 // import 'package:virus_tracker/feedbackPage.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'globals.dart' as globals;
@@ -33,6 +32,7 @@ class HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   int _currentIndex = 0;
+  String language = globals.language;
 
   HomePageState() {
     // print(Localizations.localeOf(context));
@@ -42,6 +42,16 @@ class HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    Timer.periodic(Duration(milliseconds: 100), (timer) {
+      if (!mounted) return;
+      if (language != globals.language) {
+        setState(() {
+          allTranslations.setNewLanguage(globals.language);
+          language = globals.language;
+          // print(_taxilist);
+        });
+      }
+    });
   }
 
   // var buttonColor = Color.fromRGBO(0, 0xCC, 0xFF, 1);
@@ -85,26 +95,13 @@ class HomePageState extends State<HomePage> {
                     child: PopupMenuButton<String>(
                       onSelected: (val) async {
                         if (val == 'feedback') {
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //     builder: (BuildContext context) =>
-                          //         FeedbackPage()));
-                          Email email = Email(
-                            body: '',
-                            subject: '意見回覆',
-                            recipients: ['togethertraveldiary@gmail.com'],
-                            isHTML: false,
-                          );
-                          String platformResponse;
-                          try {
-                            await FlutterEmailSender.send(email);
-                            platformResponse = '傳送成功';
-                            Navigator.pop(context);
-                          } catch (error) {
-                            platformResponse = error.toString();
+                          var url =
+                              'mailto:togethertraveldiary@gmail.com?subject=${allTranslations.text('Feedback')}&body=';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
                           }
-                          _scaffoldKey.currentState.showSnackBar(SnackBar(
-                            content: Text(platformResponse),
-                          ));
                         } else if (val == 'completeList') {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (BuildContext context) =>
@@ -122,21 +119,21 @@ class HomePageState extends State<HomePage> {
                             throw 'Could not launch $url';
                           }
                         } else if (val == 'facebook') {
-                          // const url =
-                          //     'https://www.facebook.com/%E4%B8%80%E8%B5%B7-%E5%BF%AB%E9%80%9F%E7%B4%80%E9%8C%84%E8%A1%8C%E8%B9%A4%E6%88%B0%E5%8B%9Dcovid-19-115060663529087';
-                          // if (await canLaunch(url)) {
-                          //   await launch(url);
-                          // } else {
-                          //   throw 'Could not launch $url';
-                          // }
+                          const url =
+                              'https://www.facebook.com/%E4%B8%80%E8%B5%B7-%E5%BF%AB%E9%80%9F%E7%99%BB%E8%A8%98%E4%BA%A4%E9%80%9A%E9%81%8B%E8%BC%B8%E8%BB%8C%E8%B7%A1-104122821309810/?modal=admin_todo_tour';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
                         } else if (val == 'instagram') {
-                          // const url =
-                          //     'https://www.instagram.com/2020.fightcovid19/';
-                          // if (await canLaunch(url)) {
-                          //   await launch(url);
-                          // } else {
-                          //   throw 'Could not launch $url';
-                          // }
+                          const url =
+                              'https://instagram.com/togethertraveldiary?igshid=1arpr6c6frc53';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
                         }
                       },
                       itemBuilder: (BuildContext context) =>
@@ -161,46 +158,46 @@ class HomePageState extends State<HomePage> {
                         //   value: 'tutorial',
                         //   child: Text(allTranslations.text('Tutorial')),
                         // ),
-                        // PopupMenuItem<String>(
-                        //   value: 'facebook',
-                        //   child: Row(children: <Widget>[
-                        //     Image(
-                        //         image: AssetImage(
-                        //             (Theme.of(context).brightness ==
-                        //                     Brightness.dark)
-                        //                 ? 'assets/fb_night.png'
-                        //                 : 'assets/fb_day.png'),
-                        //         height: 20.0),
-                        //     Padding(
-                        //         padding: const EdgeInsets.only(left: 15),
-                        //         child: Text('Facebook',
-                        //             style: TextStyle(
-                        //                 color: (Theme.of(context).brightness ==
-                        //                         Brightness.dark)
-                        //                     ? Theme.of(context).indicatorColor
-                        //                     : Theme.of(context).primaryColor))),
-                        //   ]),
-                        // ),
-                        // PopupMenuItem<String>(
-                        //   value: 'instagram',
-                        //   child: Row(children: <Widget>[
-                        //     Image(
-                        //         image: AssetImage(
-                        //             (Theme.of(context).brightness ==
-                        //                     Brightness.dark)
-                        //                 ? 'assets/IG_night.png'
-                        //                 : 'assets/IG_day.png'),
-                        //         height: 20.0),
-                        //     Padding(
-                        //         padding: const EdgeInsets.only(left: 15),
-                        //         child: Text('Instagram',
-                        //             style: TextStyle(
-                        //                 color: (Theme.of(context).brightness ==
-                        //                         Brightness.dark)
-                        //                     ? Theme.of(context).accentColor
-                        //                     : Theme.of(context).primaryColor))),
-                        //   ]),
-                        // ),
+                        PopupMenuItem<String>(
+                          value: 'facebook',
+                          child: Row(children: <Widget>[
+                            Image(
+                                image: AssetImage(
+                                    (Theme.of(context).brightness ==
+                                            Brightness.dark)
+                                        ? 'assets/fb_night.png'
+                                        : 'assets/fb_day.png'),
+                                height: 20.0),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: Text('Facebook',
+                                    style: TextStyle(
+                                        color: (Theme.of(context).brightness ==
+                                                Brightness.dark)
+                                            ? Theme.of(context).indicatorColor
+                                            : Theme.of(context).primaryColor))),
+                          ]),
+                        ),
+                        PopupMenuItem<String>(
+                          value: 'instagram',
+                          child: Row(children: <Widget>[
+                            Image(
+                                image: AssetImage(
+                                    (Theme.of(context).brightness ==
+                                            Brightness.dark)
+                                        ? 'assets/IG_night.png'
+                                        : 'assets/IG_day.png'),
+                                height: 20.0),
+                            Padding(
+                                padding: const EdgeInsets.only(left: 15),
+                                child: Text('Instagram',
+                                    style: TextStyle(
+                                        color: (Theme.of(context).brightness ==
+                                                Brightness.dark)
+                                            ? Theme.of(context).accentColor
+                                            : Theme.of(context).primaryColor))),
+                          ]),
+                        ),
                       ],
                     )),
               ]),

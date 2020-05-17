@@ -18,7 +18,7 @@ class _IntroScreenState extends State<IntroScreen> {
   void initState() {
     super.initState();
     allTranslations.init();
-    Timer(Duration(seconds: 5), () {
+    Timer(Duration(seconds: 3), () {
       _setLanguage();
       Navigator.pushReplacementNamed(context, '/home');
     });
@@ -38,7 +38,7 @@ class _IntroScreenState extends State<IntroScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
-                child: Image(image: AssetImage('./assets/introAnimation.gif')),
+                child: Image(image: AssetImage('./assets/LogoChinese.jpg')),
               ),
               // CircularProgressIndicator(),
             ],

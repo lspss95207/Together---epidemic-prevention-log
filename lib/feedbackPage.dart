@@ -82,7 +82,7 @@
 //       Email email = Email(
 //         body: feedback,
 //         subject: '意見回覆',
-//         recipients: ['2020fightepidemic@gmail.com'],
+//         recipients: ['togethertraveldiary@gmail.com'],
 //         isHTML: false,
 //       );
 //       String platformResponse;

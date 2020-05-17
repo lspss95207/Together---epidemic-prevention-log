@@ -40,12 +40,12 @@ class SettingPageState extends State<SettingPage> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false);
-          },
-        ),
+        // leading: IconButton(
+        //   icon: Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     Navigator.pushNamedAndRemoveUntil(context, '/home', (r) => false);
+        //   },
+        // ),
         title:
             Text(allTranslations.text('Setting'), textAlign: TextAlign.center),
       ),
@@ -84,10 +84,9 @@ class SettingPageState extends State<SettingPage> {
                 } else {
                   language = _language;
                 }
-                await allTranslations.setNewLanguage(language);
                 setState(() {
                   globals.language = _language;
-                  Navigator.pushReplacementNamed(context, '/SettingPage');
+                  allTranslations.setNewLanguage(language);
                 });
               },
               items: (<String>['System'] +
