@@ -33,6 +33,6 @@ class Metro {
     destination = map['destination'];
     datetime_from = DateTime.parse(map['datetime_from']);
     datetime_to = DateTime.parse(map['datetime_to']);
-    note = map['note'];
+    note = map['note']??'';
   }
 }

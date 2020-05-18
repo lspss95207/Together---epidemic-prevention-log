@@ -50,8 +50,7 @@ class TaxiFormState extends State<TaxiForm> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-          Navigator.of(context).pop();
-
+            Navigator.of(context).pop();
           },
         ),
       ),
@@ -89,6 +88,24 @@ class TaxiFormState extends State<TaxiForm> {
             },
             onChanged: (val) => _submitTaxi.plate = val,
             onSaved: (val) => _submitTaxi.plate = val,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              icon: Icon(Icons.local_taxi),
+              hintText: allTranslations.text('Please enter Departure-taxi'),
+              labelText: allTranslations.text('Departure-taxi'),
+            ),
+            onChanged: (val) => _submitTaxi.departure = val,
+            onSaved: (val) => _submitTaxi.departure = val,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              icon: Icon(Icons.local_taxi),
+              hintText: allTranslations.text('Please enter Destination-taxi'),
+              labelText: allTranslations.text('Destination-taxi'),
+            ),
+            onChanged: (val) => _submitTaxi.destination = val,
+            onSaved: (val) => _submitTaxi.destination = val,
           ),
 
           //-----------datetime from------------------

@@ -45,6 +45,6 @@ class TR {
     datetime_from = DateTime.parse(map['datetime_from']);
     datetime_to = DateTime.parse(map['datetime_to']);
     car_number = map['car_number'];
-    note = map['note'];
+    note = map['note']??'';
   }
 }

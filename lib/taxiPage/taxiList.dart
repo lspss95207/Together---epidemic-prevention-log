@@ -86,7 +86,7 @@ class TaxiListState extends State<TaxiList> {
       direction: DismissDirection.endToStart,
       child: ListTile(
         // leading: _infectLevelIcon(taxi.infection_level),
-        title: Text(taxi.plate),
+        title: Text('${taxi.plate} ${taxi.departure??""} - ${taxi.destination??""}'),
         subtitle: Text('${DateFormat('MM/dd HH:mm').format(taxi.datetime_from)} - ${DateFormat('MM/dd HH:mm').format(taxi.datetime_to)}\n${taxi.note}'),
         onTap: null,
       ),
