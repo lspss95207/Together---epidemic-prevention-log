@@ -292,9 +292,7 @@ class KaohsiungMetroFormState extends State<KaohsiungMetroForm> {
                 MyPainter(_metroStationPath, departure, destination),
             child: ImageMap(
               image: Image.asset(
-                  (Theme.of(context).brightness == Brightness.dark)
-                      ? 'assets/KaohsiungMetroMap_night.jpg'
-                      : 'assets/KaohsiungMetroMap_day.jpg',
+                  'assets/KaohsiungMetroMap_${globals.theme}.jpg',
                   fit: BoxFit.contain),
               onTap: (val) {
                 // _readMetroStations();

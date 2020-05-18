@@ -40,8 +40,8 @@ class MetroRegionPageState extends State<MetroRegionPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                _selectButton(allTranslations.text('Taipei Metro'), Icons.location_on,
-                    TaipeiMetroList(), Theme.of(context).accentColor)
+                _selectButton(allTranslations.text('Taipei Metro'),
+                    TaipeiMetroList(), './assets/TaipeiMetroIcon_${globals.theme}.png')
               ],
             ),
           ),
@@ -50,8 +50,8 @@ class MetroRegionPageState extends State<MetroRegionPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                _selectButton(allTranslations.text('Kaohsiung Metro'), Icons.location_on,
-                    KaohsiungMetroList(), Theme.of(context).accentColor)
+                _selectButton(allTranslations.text('Kaohsiung Metro'),
+                    KaohsiungMetroList(), './assets/KaohsiungMetroIcon_${globals.theme}.png')
               ],
             ),
           ),
@@ -61,7 +61,7 @@ class MetroRegionPageState extends State<MetroRegionPage> {
   }
 
   Widget _selectButton(
-      String title, IconData icon, Widget navTo, Color icon_color) {
+      String title, Widget navTo, String imagePath) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.4,
       height: MediaQuery.of(context).size.width * 0.4,
@@ -70,9 +70,7 @@ class MetroRegionPageState extends State<MetroRegionPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Icon(icon,
-                  size: MediaQuery.of(context).size.width * 0.15,
-                  color: icon_color),
+              Image(image: AssetImage(imagePath)),
               Text(title,
                   textAlign: TextAlign.center,
                   style: TextStyle(

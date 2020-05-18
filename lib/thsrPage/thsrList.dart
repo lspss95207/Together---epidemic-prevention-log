@@ -93,9 +93,43 @@ class THSRListState extends State<THSRList> {
   }
 
   Widget _buildTHSRList() {
-    if (_thsrlist.isEmpty) {
-      // showMessage('There is currently no location in the list yet');
-    }
+if (_thsrlist.isEmpty) {
+      return Container(
+          alignment: Alignment.center,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.4,
+            height: MediaQuery.of(context).size.width * 0.4,
+            child: RaisedButton(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Icon(
+                      Icons.add,
+                      size: MediaQuery.of(context).size.width * 0.15,
+                    ),
+                    Text(allTranslations.text('Add Taxi'),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            // color: Theme.of(context).accentColor,
+                            // fontWeight: FontWeight.bold,
+                            fontSize: 16.0)),
+                  ],
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  side: BorderSide(
+                      color: Theme.of(context).dividerColor, width: 3),
+                ),
+                onPressed: () {
+                  print(allTranslations.locale);
+                  print(Localizations.localeOf(context).toString());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => THSRForm(null,null)));
+                }),
+          ));
+      // showMessage('There is currently no taxi in the list yet');
+    } else {
     return ListView.separated(
       padding: const EdgeInsets.symmetric(vertical: 5),
       // padding: const EdgeInsets.all(16),
@@ -110,6 +144,7 @@ class THSRListState extends State<THSRList> {
         );
       },
     );
+    }
   }
 
   Widget _buildRow(THSR thsr) {

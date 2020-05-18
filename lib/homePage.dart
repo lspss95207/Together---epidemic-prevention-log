@@ -162,11 +162,7 @@ class HomePageState extends State<HomePage> {
                           value: 'facebook',
                           child: Row(children: <Widget>[
                             Image(
-                                image: AssetImage(
-                                    (Theme.of(context).brightness ==
-                                            Brightness.dark)
-                                        ? 'assets/fb_night.png'
-                                        : 'assets/fb_day.png'),
+                                image: AssetImage('assets/fb_${globals.theme}.png'),
                                 height: 20.0),
                             Padding(
                                 padding: const EdgeInsets.only(left: 15),
@@ -182,11 +178,7 @@ class HomePageState extends State<HomePage> {
                           value: 'instagram',
                           child: Row(children: <Widget>[
                             Image(
-                                image: AssetImage(
-                                    (Theme.of(context).brightness ==
-                                            Brightness.dark)
-                                        ? 'assets/IG_night.png'
-                                        : 'assets/IG_day.png'),
+                                image: AssetImage('assets/IG_${globals.theme}.png'),
                                 height: 20.0),
                             Padding(
                                 padding: const EdgeInsets.only(left: 15),

@@ -290,10 +290,7 @@ class TaipeiMetroFormState extends State<TaipeiMetroForm> {
             foregroundPainter:
                 MyPainter(_metroStationPath, departure, destination),
             child: ImageMap(
-              image: Image.asset(
-                  (Theme.of(context).brightness == Brightness.dark)
-                      ? 'assets/TaipeiMetroMap_night.jpg'
-                      : 'assets/TaipeiMetroMap_day.jpg',
+              image: Image.asset('assets/TaipeiMetroMap_${globals.theme}.jpg',
                   fit: BoxFit.contain),
               onTap: (val) {
                 // _readMetroStations();

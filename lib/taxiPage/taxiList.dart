@@ -40,45 +40,86 @@ class TaxiListState extends State<TaxiList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: Text(allTranslations.text('Taxi Record'),
-              textAlign: TextAlign.center),
-        ),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: _buildTaxiList(),
-        ),
-        floatingActionButton: FloatingActionButton(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: Text(allTranslations.text('Taxi Record'),
+            textAlign: TextAlign.center),
+      ),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: _buildTaxiList(),
+      ),
+      floatingActionButton: _buildFloatingActionButton(),
+    );
+  }
+
+  Widget _buildFloatingActionButton() {
+    if (_taxilist.isEmpty) {
+      return null;
+    } else {
+      return FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    TaxiForm()));
-          },
-        )
-        );
+                builder: (BuildContext context) => TaxiForm()));
+          });
+    }
   }
 
   Widget _buildTaxiList() {
     if (_taxilist.isEmpty) {
+      return Container(
+          alignment: Alignment.center,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.4,
+            height: MediaQuery.of(context).size.width * 0.4,
+            child: RaisedButton(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Icon(
+                      Icons.add,
+                      size: MediaQuery.of(context).size.width * 0.15,
+                    ),
+                    Text(allTranslations.text('Add Taxi'),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            // color: Theme.of(context).accentColor,
+                            // fontWeight: FontWeight.bold,
+                            fontSize: 16.0)),
+                  ],
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                  side: BorderSide(
+                      color: Theme.of(context).dividerColor, width: 3),
+                ),
+                onPressed: () {
+                  print(allTranslations.locale);
+                  print(Localizations.localeOf(context).toString());
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => TaxiForm()));
+                }),
+          ));
       // showMessage('There is currently no taxi in the list yet');
+    } else {
+      return ListView.separated(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        // padding: const EdgeInsets.all(16),
+        itemCount: _taxilist.length,
+        itemBuilder: (BuildContext _context, int i) {
+          return _buildRow(_taxilist[i]);
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            indent: 100,
+            endIndent: 100,
+          );
+        },
+      );
     }
-    return ListView.separated(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      // padding: const EdgeInsets.all(16),
-      itemCount: _taxilist.length,
-      itemBuilder: (BuildContext _context, int i) {
-        return _buildRow(_taxilist[i]);
-      },
-      separatorBuilder: (context, index) {
-        return Divider(
-          indent: 100,
-          endIndent: 100,
-        );
-      },
-    );
   }
 
   Widget _buildRow(Taxi taxi) {
@@ -86,8 +127,10 @@ class TaxiListState extends State<TaxiList> {
       direction: DismissDirection.endToStart,
       child: ListTile(
         // leading: _infectLevelIcon(taxi.infection_level),
-        title: Text('${taxi.plate} ${taxi.departure??""} - ${taxi.destination??""}'),
-        subtitle: Text('${DateFormat('MM/dd HH:mm').format(taxi.datetime_from)} - ${DateFormat('MM/dd HH:mm').format(taxi.datetime_to)}\n${taxi.note}'),
+        title: Text(
+            '${taxi.plate} ${taxi.departure ?? ""} - ${taxi.destination ?? ""}'),
+        subtitle: Text(
+            '${DateFormat('MM/dd HH:mm').format(taxi.datetime_from)} - ${DateFormat('MM/dd HH:mm').format(taxi.datetime_to)}\n${taxi.note}'),
         onTap: null,
       ),
       background: Container(
@@ -125,8 +168,8 @@ class TaxiListState extends State<TaxiList> {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          title:
-              Text("${allTranslations.text('Do you want to delete Taxi')} ${taxi.plate}?"),
+          title: Text(
+              "${allTranslations.text('Do you want to delete Taxi')} ${taxi.plate}?"),
           actions: <Widget>[
             FlatButton(
               child: Text(allTranslations.text('Confirm')),
