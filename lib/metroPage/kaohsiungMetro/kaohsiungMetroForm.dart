@@ -60,13 +60,6 @@ class KaohsiungMetroFormState extends State<KaohsiungMetroForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text(allTranslations.text('Add Kaohsiung Metro')),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/KaohsiungMetroList', ModalRoute.withName('/home'));
-          },
-        ),
       ),
       key: _scaffoldKey,
       body: ListView(children: <Widget>[
@@ -363,9 +356,7 @@ class KaohsiungMetroFormState extends State<KaohsiungMetroForm> {
       _submitMetro.destination = destination;
       print(_submitMetro.toJson());
       KaohsiungMetroService().createMetro(_submitMetro);
-      // Navigator.pushReplacementNamed(context, '/MetroList');
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/KaohsiungMetroList', ModalRoute.withName('/home'));
+      Navigator.of(context).pop();
     }
   }
 

@@ -110,13 +110,6 @@ class TRFormState extends State<TRForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text(allTranslations.text('Add Taiwan Railways')),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/TRList', ModalRoute.withName('/home'));
-          },
-        ),
       ),
       key: _scaffoldKey,
       body: SafeArea(
@@ -601,9 +594,7 @@ class TRFormState extends State<TRForm> {
       submitTR.car_number = car_number;
 
       TRService().createTR(submitTR);
-      // Navigator.pushReplacementNamed(context, '/TRList');
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/TRList', ModalRoute.withName('/home'));
+      Navigator.of(context).pop();
     }
   }
 

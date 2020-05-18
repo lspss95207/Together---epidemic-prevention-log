@@ -48,7 +48,8 @@ class MetroFavState extends State<MetroFav> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text(allTranslations.text('Favorite Kaohsiung Metro stations'), textAlign: TextAlign.center),
+        title: Text(allTranslations.text('Favorite Kaohsiung Metro stations'),
+            textAlign: TextAlign.center),
       ),
       body: SafeArea(
         top: false,
@@ -97,10 +98,13 @@ class MetroFavState extends State<MetroFav> {
 
   Widget _buildRow(var favStations) {
     return Dismissible(
-      direction: DismissDirection.endToStart,      child: ListTile(
+      direction: DismissDirection.endToStart,
+      child: ListTile(
         title:
             Text(favStations['departure'] + ' - ' + favStations['destination']),
         onTap: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => KaohsiungMetroForm(
                   favStations['departure'], favStations['destination'])));
@@ -114,8 +118,8 @@ class MetroFavState extends State<MetroFav> {
         ),
         color: Colors.red,
       ),
-      key:
-          ValueKey(favStations['departure'] + ' - ' + favStations['destination']),
+      key: ValueKey(
+          favStations['departure'] + ' - ' + favStations['destination']),
       confirmDismiss: (direction) async {
         if (direction == DismissDirection.startToEnd) {
           // edit item

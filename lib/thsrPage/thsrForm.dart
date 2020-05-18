@@ -77,13 +77,6 @@ class THSRFormState extends State<THSRForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text(allTranslations.text('Add THSR')),
-                leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/THSRList', ModalRoute.withName('/home'));
-          },
-        ),
       ),
       key: _scaffoldKey,
       body: SafeArea(
@@ -398,9 +391,13 @@ class THSRFormState extends State<THSRForm> {
             var tmp = THSR();
             tmp.trainNo = thsr_raw['DailyTrainInfo']['TrainNo'];
             tmp.direction = thsr_raw['DailyTrainInfo']['Direction'];
-            tmp.departure = thsr_raw['OriginStopTime']['StationName']['Zh_tw']+' '+thsr_raw['OriginStopTime']['StationName']['En'];
-            tmp.destination =
-                thsr_raw['DestinationStopTime']['StationName']['Zh_tw']+' '+thsr_raw['DestinationStopTime']['StationName']['En'];
+            tmp.departure = thsr_raw['OriginStopTime']['StationName']['Zh_tw'] +
+                ' ' +
+                thsr_raw['OriginStopTime']['StationName']['En'];
+            tmp.destination = thsr_raw['DestinationStopTime']['StationName']
+                    ['Zh_tw'] +
+                ' ' +
+                thsr_raw['DestinationStopTime']['StationName']['En'];
             tmp.datetime_from = DateTime.parse(
                 DateFormat('yyyy-MM-dd').format(departure_time) +
                     ' ' +
@@ -459,9 +456,7 @@ class THSRFormState extends State<THSRForm> {
       submitTHSR.car_number = car_number;
 
       THSRService().createTHSR(submitTHSR);
-      // Navigator.pushReplacementNamed(context, '/THSRList');
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/THSRList', ModalRoute.withName('/home'));
+      Navigator.of(context).pop();
     }
   }
 

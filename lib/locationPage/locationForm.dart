@@ -65,13 +65,6 @@ class LocationFormState extends State<LocationForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text(allTranslations.text('Add Location')),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/LocationList', ModalRoute.withName('/home'));
-          },
-        ),
       ),
       key: _scaffoldKey,
       body: ListView(children: <Widget>[
@@ -393,15 +386,15 @@ class LocationFormState extends State<LocationForm> {
           (_submitLocation.note == null) ? '' : _submitLocation.note;
       print(_submitLocation.toJson());
       LocationService().createLocation(_submitLocation);
-      // Navigator.pushReplacementNamed(context, '/LocationList');
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/LocationList', ModalRoute.withName('/home'));
+      Navigator.of(context).pop();
     }
   }
 
   void _submitFavoriteLocation() {
     if (_submitLocation.latitude == null || _submitLocation.longitude == null) {
       showMessage(allTranslations.text('Please select a location on the map.'));
+    } else if (_submitLocation.location_name == null) {
+      showMessage(allTranslations.text('Location Name cannot be empty'));
     } else {
       LocationService().addFavorite(_submitLocation.latitude,
           _submitLocation.longitude, _submitLocation.location_name);

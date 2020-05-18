@@ -101,6 +101,8 @@ class BusFavState extends State<BusFav> {
       direction: DismissDirection.endToStart,      child: ListTile(
         title: Text(favRoute['city'] + ': ' + favRoute['route']),
         onTap: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) =>
                   BusForm(favRoute['city'], favRoute['route'])));

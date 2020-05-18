@@ -71,13 +71,6 @@ class BusFormState extends State<BusForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text(allTranslations.text('Add Bus Records')),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(
-            context, '/BusList', ModalRoute.withName('/home'));
-          },
-        ),
       ),
       key: _scaffoldKey,
       body: SafeArea(
@@ -376,9 +369,7 @@ class BusFormState extends State<BusForm> {
         print(_submitBus.note);
         print(_submitBus.toJson());
         BusService().createBus(_submitBus);
-        // Navigator.pushReplacementNamed(context, '/BusList');
-        Navigator.pushNamedAndRemoveUntil(
-            context, '/BusList', ModalRoute.withName('/home'));
+        Navigator.of(context).pop();
       }
     }
   }

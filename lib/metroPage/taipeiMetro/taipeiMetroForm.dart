@@ -60,13 +60,6 @@ class TaipeiMetroFormState extends State<TaipeiMetroForm> {
     return Scaffold(
       appBar: AppBar(
         title: Text(allTranslations.text('Add Taipei Metro')),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/TaipeiMetroList', ModalRoute.withName('/home'));
-          },
-        ),
       ),
       key: _scaffoldKey,
       body: ListView(children: <Widget>[
@@ -362,9 +355,7 @@ class TaipeiMetroFormState extends State<TaipeiMetroForm> {
       _submitMetro.destination = destination;
       print(_submitMetro.toJson());
       TaipeiMetroService().createMetro(_submitMetro);
-      // Navigator.pushReplacementNamed(context, '/MetroList');
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/TaipeiMetroList', ModalRoute.withName('/home'));
+      Navigator.of(context).pop();
     }
   }
 

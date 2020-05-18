@@ -103,6 +103,8 @@ class TRFavState extends State<TRFav> {
         title:
             Text(favStations['departure'] + ' - ' + favStations['destination']),
         onTap: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => TRForm(
                   favStations['departure'], favStations['destination'])));

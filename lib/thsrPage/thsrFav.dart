@@ -102,6 +102,8 @@ class THSRFavState extends State<THSRFav> {
         title:
             Text(favStations['departure'] + ' - ' + favStations['destination']),
         onTap: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => THSRForm(
                   favStations['departure'], favStations['destination'])));

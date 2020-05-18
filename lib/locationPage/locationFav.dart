@@ -98,8 +98,10 @@ class LocationFavState extends State<LocationFav> {
   Widget _buildRow(var favLocations) {
     return Dismissible(
       direction: DismissDirection.endToStart,      child: ListTile(
-        title: Text(favLocations['location_name']),
+        title: Text(favLocations['location_name']??''),
         onTap: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => LocationForm(
                   favLocations['latitude'],

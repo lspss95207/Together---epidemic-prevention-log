@@ -50,8 +50,8 @@ class TaxiFormState extends State<TaxiForm> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/TaxiList', ModalRoute.withName('/home'));
+          Navigator.of(context).pop();
+
           },
         ),
       ),
@@ -202,9 +202,7 @@ class TaxiFormState extends State<TaxiForm> {
       _submitTaxi.note = (_submitTaxi.note == null) ? '' : _submitTaxi.note;
       print(_submitTaxi.toJson());
       TaxiService().createTaxi(_submitTaxi);
-      // Navigator.pushReplacementNamed(context, '/TaxiList');
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/TaxiList', ModalRoute.withName('/home'));
+      Navigator.of(context).pop();
     }
   }
 

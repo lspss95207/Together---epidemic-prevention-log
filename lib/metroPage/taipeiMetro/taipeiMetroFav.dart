@@ -101,6 +101,8 @@ class MetroFavState extends State<MetroFav> {
         title:
             Text(favStations['departure'] + ' - ' + favStations['destination']),
         onTap: () {
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => TaipeiMetroForm(
                   favStations['departure'], favStations['destination'])));
