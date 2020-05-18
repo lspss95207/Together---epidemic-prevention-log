@@ -22,6 +22,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>The app will not use media library usage info, please reject the access. You should never see this, please contact us</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>The app will not use calendars info, please reject the access. You should never see this, please contact us</string>
 	<key>NSContactsUsageDescription</key>
@@ -55,7 +57,5 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<string>YES</string>
-	<key>NSAppleMusicUsageDescription</key>
-	<string>The app will not use media library usage info, please reject the access. You should never see this, please contact us</string>
 </dict>
 </plist>
