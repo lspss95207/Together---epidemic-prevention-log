@@ -41,75 +41,84 @@ class BusListState extends State<BusList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: Text(allTranslations.text('Bus Record'),
-              textAlign: TextAlign.center),
-        ),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: _buildBusList(),
-        ),
-        floatingActionButton: FloatingActionButton(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: Text(allTranslations.text('Bus Record'),
+            textAlign: TextAlign.center),
+      ),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: _buildBusList(),
+      ),
+      floatingActionButton: _buildFloatingActionButton(),
+
+      // SpeedDial(
+      //   animatedIcon: AnimatedIcons.menu_close,
+      //   animatedIconTheme: IconThemeData(size: 22.0),
+      //   // child: Icon(Icons.add),
+      //   overlayOpacity: 0.3,
+      //   curve: Curves.bounceIn,
+      //   children: [
+      //     SpeedDialChild(
+      //       child: Icon(Icons.add, color: Colors.white),
+      //       backgroundColor: Colors.deepOrange,
+      //       onTap: () {
+      //         Navigator.of(context).push(MaterialPageRoute(
+      //             builder: (BuildContext context) => BusForm(null, null)));
+      //       },
+      //       label: '新增紀錄',
+      //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
+      //       labelBackgroundColor: Colors.deepOrangeAccent,
+      //     ),
+      //     SpeedDialChild(
+      //       child: Icon(Icons.brush, color: Colors.white),
+      //       backgroundColor: Colors.green,
+      //       onTap: () {
+      //         Navigator.of(context).push(MaterialPageRoute(
+      //             builder: (BuildContext context) => BusFav()));
+      //       },
+      //       label: '常用路線',
+      //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
+      //       labelBackgroundColor: Colors.green,
+      //     ),
+      //   ],
+      // )
+    );
+  }
+
+  Widget _buildFloatingActionButton() {
+    if (_buslist.isEmpty) {
+      return null;
+    } else {
+      return FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => BusForm(null, null)));
-          },
-        )
-
-        // SpeedDial(
-        //   animatedIcon: AnimatedIcons.menu_close,
-        //   animatedIconTheme: IconThemeData(size: 22.0),
-        //   // child: Icon(Icons.add),
-        //   overlayOpacity: 0.3,
-        //   curve: Curves.bounceIn,
-        //   children: [
-        //     SpeedDialChild(
-        //       child: Icon(Icons.add, color: Colors.white),
-        //       backgroundColor: Colors.deepOrange,
-        //       onTap: () {
-        //         Navigator.of(context).push(MaterialPageRoute(
-        //             builder: (BuildContext context) => BusForm(null, null)));
-        //       },
-        //       label: '新增紀錄',
-        //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
-        //       labelBackgroundColor: Colors.deepOrangeAccent,
-        //     ),
-        //     SpeedDialChild(
-        //       child: Icon(Icons.brush, color: Colors.white),
-        //       backgroundColor: Colors.green,
-        //       onTap: () {
-        //         Navigator.of(context).push(MaterialPageRoute(
-        //             builder: (BuildContext context) => BusFav()));
-        //       },
-        //       label: '常用路線',
-        //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
-        //       labelBackgroundColor: Colors.green,
-        //     ),
-        //   ],
-        // )
-        );
+          });
+    }
   }
 
   Widget _buildBusList() {
     if (_buslist.isEmpty) {
+      return _buildCenterAddButton();
       // showMessage('There is currently no location in the list yet');
+    } else {
+      return ListView.separated(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        itemCount: _buslist.length,
+        itemBuilder: (BuildContext _context, int i) {
+          return _buildRow(_buslist[i]);
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            indent: 100,
+            endIndent: 100,
+          );
+        },
+      );
     }
-    return ListView.separated(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      itemCount: _buslist.length,
-      itemBuilder: (BuildContext _context, int i) {
-        return _buildRow(_buslist[i]);
-      },
-      separatorBuilder: (context, index) {
-        return Divider(
-          indent: 100,
-          endIndent: 100,
-        );
-      },
-    );
   }
 
   Widget _buildRow(Bus bus) {
@@ -150,6 +159,43 @@ class BusListState extends State<BusList> {
         }
       },
     );
+  }
+
+  Widget _buildCenterAddButton() {
+    return Container(
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.width * 0.4,
+          child: RaisedButton(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(
+                    Icons.add,
+                    size: MediaQuery.of(context).size.width * 0.15,
+                  ),
+                  Text(allTranslations.text('Add Bus Records'),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          // color: Theme.of(context).accentColor,
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 16.0)),
+                ],
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                side:
+                    BorderSide(color: Theme.of(context).dividerColor, width: 3),
+              ),
+              onPressed: () {
+                print(allTranslations.locale);
+                print(Localizations.localeOf(context).toString());
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => BusForm(null,null)));
+              }),
+        ));
   }
 
   Future<bool> _deleteCheck(BuildContext context, Bus bus) {

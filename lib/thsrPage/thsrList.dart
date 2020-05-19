@@ -41,109 +41,84 @@ class THSRListState extends State<THSRList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: Text(allTranslations.text('THSR Record'), textAlign: TextAlign.center),
-        ),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: _buildTHSRList(),
-        ),
-        floatingActionButton: 
-        FloatingActionButton(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: Text(allTranslations.text('THSR Record'),
+            textAlign: TextAlign.center),
+      ),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: _buildTHSRList(),
+      ),
+      floatingActionButton: _buildFloatingActionButton(),
+
+      // SpeedDial(
+      //   animatedIcon: AnimatedIcons.menu_close,
+      //   animatedIconTheme: IconThemeData(size: 22.0),
+      //   // child: Icon(Icons.add),
+      //   curve: Curves.bounceIn,
+      //   overlayOpacity: 0.3,
+      //   children: [
+      //     SpeedDialChild(
+      //       child: Icon(Icons.add, color: Colors.white),
+      //       backgroundColor: Colors.deepOrange,
+      //       onTap: () {
+      //         Navigator.of(context).push(MaterialPageRoute(
+      //             builder: (BuildContext context) => THSRForm(null, null)));
+      //       },
+      //       label: '新增紀錄',
+      //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
+      //       labelBackgroundColor: Colors.deepOrangeAccent,
+      //     ),
+      //     SpeedDialChild(
+      //       child: Icon(Icons.brush, color: Colors.white),
+      //       backgroundColor: Colors.green,
+      //       onTap: () {
+      //         Navigator.of(context).push(MaterialPageRoute(
+      //             builder: (BuildContext context) => THSRFav()));
+      //       },
+      //       label: '常用起訖站',
+      //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
+      //       labelBackgroundColor: Colors.green,
+      //     ),
+      //   ],
+      // )
+    );
+  }
+
+  Widget _buildFloatingActionButton() {
+    if (_thsrlist.isEmpty) {
+      return null;
+    } else {
+      return FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => THSRForm(null, null)));
-          },
-        )
-        // SpeedDial(
-        //   animatedIcon: AnimatedIcons.menu_close,
-        //   animatedIconTheme: IconThemeData(size: 22.0),
-        //   // child: Icon(Icons.add),
-        //   curve: Curves.bounceIn,
-        //   overlayOpacity: 0.3,
-        //   children: [
-        //     SpeedDialChild(
-        //       child: Icon(Icons.add, color: Colors.white),
-        //       backgroundColor: Colors.deepOrange,
-        //       onTap: () {
-        //         Navigator.of(context).push(MaterialPageRoute(
-        //             builder: (BuildContext context) => THSRForm(null, null)));
-        //       },
-        //       label: '新增紀錄',
-        //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
-        //       labelBackgroundColor: Colors.deepOrangeAccent,
-        //     ),
-        //     SpeedDialChild(
-        //       child: Icon(Icons.brush, color: Colors.white),
-        //       backgroundColor: Colors.green,
-        //       onTap: () {
-        //         Navigator.of(context).push(MaterialPageRoute(
-        //             builder: (BuildContext context) => THSRFav()));
-        //       },
-        //       label: '常用起訖站',
-        //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
-        //       labelBackgroundColor: Colors.green,
-        //     ),
-        //   ],
-        // )
-        );
+          });
+    }
   }
 
   Widget _buildTHSRList() {
-if (_thsrlist.isEmpty) {
-      return Container(
-          alignment: Alignment.center,
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.4,
-            height: MediaQuery.of(context).size.width * 0.4,
-            child: RaisedButton(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Icon(
-                      Icons.add,
-                      size: MediaQuery.of(context).size.width * 0.15,
-                    ),
-                    Text(allTranslations.text('Add Taxi'),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            // color: Theme.of(context).accentColor,
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 16.0)),
-                  ],
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  side: BorderSide(
-                      color: Theme.of(context).dividerColor, width: 3),
-                ),
-                onPressed: () {
-                  print(allTranslations.locale);
-                  print(Localizations.localeOf(context).toString());
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => THSRForm(null,null)));
-                }),
-          ));
+    if (_thsrlist.isEmpty) {
+      return _buildCenterAddButton();
       // showMessage('There is currently no taxi in the list yet');
     } else {
-    return ListView.separated(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      // padding: const EdgeInsets.all(16),
-      itemCount: _thsrlist.length,
-      itemBuilder: (BuildContext _context, int i) {
-        return _buildRow(_thsrlist[i]);
-      },
-      separatorBuilder: (context, index) {
-        return Divider(
-          indent: 100,
-          endIndent: 100,
-        );
-      },
-    );
+      return ListView.separated(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        // padding: const EdgeInsets.all(16),
+        itemCount: _thsrlist.length,
+        itemBuilder: (BuildContext _context, int i) {
+          return _buildRow(_thsrlist[i]);
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            indent: 100,
+            endIndent: 100,
+          );
+        },
+      );
     }
   }
 
@@ -152,8 +127,7 @@ if (_thsrlist.isEmpty) {
       direction: DismissDirection.endToStart,
       child: ListTile(
         // leading: _infectLevelIcon(thsr.infection_level),
-        title:
-            Text('${thsr.trainNo} ${thsr.departure} - ${thsr.destination}'),
+        title: Text('${thsr.trainNo} ${thsr.departure} - ${thsr.destination}'),
         subtitle: Text(
           '${DateFormat('MM/dd HH:mm').format(thsr.datetime_from)} - ${DateFormat('MM/dd HH:mm').format(thsr.datetime_to)}\n${thsr.note}',
         ),
@@ -188,13 +162,53 @@ if (_thsrlist.isEmpty) {
     );
   }
 
+  
+  Widget _buildCenterAddButton() {
+    return Container(
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.width * 0.4,
+          child: RaisedButton(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(
+                    Icons.add,
+                    size: MediaQuery.of(context).size.width * 0.15,
+                  ),
+                  Text(allTranslations.text('Add THSR'),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          // color: Theme.of(context).accentColor,
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 16.0)),
+                ],
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                side:
+                    BorderSide(color: Theme.of(context).dividerColor, width: 3),
+              ),
+              onPressed: () {
+                print(allTranslations.locale);
+                print(Localizations.localeOf(context).toString());
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => THSRForm(null,null)));
+              }),
+        ));
+  }
+
+
   Future<bool> _deleteCheck(BuildContext context, THSR thsr) {
     return showDialog<bool>(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('${allTranslations.text('Do you want to delete THSR Train No.')} ${thsr.trainNo}?'),
+          title: Text(
+              '${allTranslations.text('Do you want to delete THSR Train No.')} ${thsr.trainNo}?'),
           actions: <Widget>[
             FlatButton(
               child: Text(allTranslations.text('Confirm')),

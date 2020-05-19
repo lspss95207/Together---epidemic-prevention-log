@@ -69,57 +69,23 @@ class TaxiListState extends State<TaxiList> {
 
   Widget _buildTaxiList() {
     if (_taxilist.isEmpty) {
-      return Container(
-          alignment: Alignment.center,
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.4,
-            height: MediaQuery.of(context).size.width * 0.4,
-            child: RaisedButton(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Icon(
-                      Icons.add,
-                      size: MediaQuery.of(context).size.width * 0.15,
-                    ),
-                    Text(allTranslations.text('Add Taxi'),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            // color: Theme.of(context).accentColor,
-                            // fontWeight: FontWeight.bold,
-                            fontSize: 16.0)),
-                  ],
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  side: BorderSide(
-                      color: Theme.of(context).dividerColor, width: 3),
-                ),
-                onPressed: () {
-                  print(allTranslations.locale);
-                  print(Localizations.localeOf(context).toString());
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => TaxiForm()));
-                }),
-          ));
+      return _buildCenterAddButton();
       // showMessage('There is currently no taxi in the list yet');
-    } else {
-      return ListView.separated(
-        padding: const EdgeInsets.symmetric(vertical: 5),
-        // padding: const EdgeInsets.all(16),
-        itemCount: _taxilist.length,
-        itemBuilder: (BuildContext _context, int i) {
-          return _buildRow(_taxilist[i]);
-        },
-        separatorBuilder: (context, index) {
-          return Divider(
-            indent: 100,
-            endIndent: 100,
-          );
-        },
-      );
     }
+    return ListView.separated(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      // padding: const EdgeInsets.all(16),
+      itemCount: _taxilist.length,
+      itemBuilder: (BuildContext _context, int i) {
+        return _buildRow(_taxilist[i]);
+      },
+      separatorBuilder: (context, index) {
+        return Divider(
+          indent: 100,
+          endIndent: 100,
+        );
+      },
+    );
   }
 
   Widget _buildRow(Taxi taxi) {
@@ -160,6 +126,43 @@ class TaxiListState extends State<TaxiList> {
         }
       },
     );
+  }
+
+  Widget _buildCenterAddButton() {
+    return Container(
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.width * 0.4,
+          child: RaisedButton(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(
+                    Icons.add,
+                    size: MediaQuery.of(context).size.width * 0.15,
+                  ),
+                  Text(allTranslations.text('Add Taxi'),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          // color: Theme.of(context).accentColor,
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 16.0)),
+                ],
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                side:
+                    BorderSide(color: Theme.of(context).dividerColor, width: 3),
+              ),
+              onPressed: () {
+                print(allTranslations.locale);
+                print(Localizations.localeOf(context).toString());
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => TaxiForm()));
+              }),
+        ));
   }
 
   Future<bool> _deleteCheck(BuildContext context, Taxi taxi) {

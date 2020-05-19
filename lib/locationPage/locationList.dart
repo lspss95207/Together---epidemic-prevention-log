@@ -51,14 +51,8 @@ class LocationListState extends State<LocationList> {
           bottom: false,
           child: _buildLocationList(),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    LocationForm(null, null, null)));
-          },
-        )
+        floatingActionButton: _buildFloatingActionButton(),
+        
         // SpeedDial(
         //   animatedIcon: AnimatedIcons.menu_close,
         //   animatedIconTheme: IconThemeData(size: 22.0),
@@ -93,8 +87,23 @@ class LocationListState extends State<LocationList> {
         );
   }
 
+
+
+  Widget _buildFloatingActionButton() {
+    if (_locationlist.isEmpty) {
+      return null;
+    } else {
+      return FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => LocationForm(null,null,null)));
+          });
+    }
+  }
   Widget _buildLocationList() {
     if (_locationlist.isEmpty) {
+      return _buildCenterAddButton();
       // showMessage('There is currently no location in the list yet');
     }
     return ListView.separated(
@@ -149,6 +158,43 @@ class LocationListState extends State<LocationList> {
         }
       },
     );
+  }
+
+  Widget _buildCenterAddButton() {
+    return Container(
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.width * 0.4,
+          child: RaisedButton(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(
+                    Icons.add,
+                    size: MediaQuery.of(context).size.width * 0.15,
+                  ),
+                  Text(allTranslations.text('Add Location'),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          // color: Theme.of(context).accentColor,
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 16.0)),
+                ],
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                side:
+                    BorderSide(color: Theme.of(context).dividerColor, width: 3),
+              ),
+              onPressed: () {
+                print(allTranslations.locale);
+                print(Localizations.localeOf(context).toString());
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => LocationForm(null,null,null)));
+              }),
+        ));
   }
 
   Future<bool> _deleteCheck(BuildContext context, Location location) {

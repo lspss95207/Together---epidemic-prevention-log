@@ -51,13 +51,7 @@ class KaohsiungMetroListState extends State<KaohsiungMetroList> {
         bottom: false,
         child: _buildMetroList(),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => KaohsiungMetroForm(null, null)));
-        },
-      ),
+      floatingActionButton: _buildFloatingActionButton(),
       // SpeedDial(
       //   animatedIcon: AnimatedIcons.menu_close,
       //   animatedIconTheme: IconThemeData(size: 22.0),
@@ -91,8 +85,22 @@ class KaohsiungMetroListState extends State<KaohsiungMetroList> {
     );
   }
 
+    Widget _buildFloatingActionButton() {
+    if (_metrolist.isEmpty) {
+      return null;
+    } else {
+      return FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => KaohsiungMetroForm(null,null)));
+          });
+    }
+  }
+
   Widget _buildMetroList() {
     if (_metrolist.isEmpty) {
+      return _buildCenterAddButton();
       // showMessage('There is currently no location in the list yet');
     }
     return ListView.separated(
@@ -148,6 +156,44 @@ class KaohsiungMetroListState extends State<KaohsiungMetroList> {
         }
       },
     );
+  }
+
+
+  Widget _buildCenterAddButton() {
+    return Container(
+        alignment: Alignment.center,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.4,
+          height: MediaQuery.of(context).size.width * 0.4,
+          child: RaisedButton(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(
+                    Icons.add,
+                    size: MediaQuery.of(context).size.width * 0.15,
+                  ),
+                  Text(allTranslations.text('Add Kaohsiung Metro'),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          // color: Theme.of(context).accentColor,
+                          // fontWeight: FontWeight.bold,
+                          fontSize: 16.0)),
+                ],
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+                side:
+                    BorderSide(color: Theme.of(context).dividerColor, width: 3),
+              ),
+              onPressed: () {
+                print(allTranslations.locale);
+                print(Localizations.localeOf(context).toString());
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => KaohsiungMetroForm(null,null)));
+              }),
+        ));
   }
 
   Future<bool> _deleteCheck(BuildContext context, Metro metro) {
