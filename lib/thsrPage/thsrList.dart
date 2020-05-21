@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:floating_pullup_card/floating_pullup_card.dart';
 
 import 'package:virus_tracker/globals.dart' as globals;
 import 'package:virus_tracker/all_translations.dart';
@@ -23,6 +24,8 @@ class THSRListState extends State<THSRList> {
   List<THSR> _thsrlist = <THSR>[];
 
   var updatePeriod;
+  FloatingPullUpState cardState = FloatingPullUpState.hidden;
+  Widget card = Container();
 
   @override
   void initState() {
@@ -46,11 +49,21 @@ class THSRListState extends State<THSRList> {
         title: Text(allTranslations.text('THSR Record'),
             textAlign: TextAlign.center),
       ),
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: _buildTHSRList(),
-      ),
+      body: FloatingPullUpCardLayout(
+          child: SafeArea(
+            top: false,
+            bottom: false,
+            child: _buildTHSRList(),
+          ),
+          body: card,
+          dismissable: true,
+          state: cardState,
+          onOutsideTap: () {
+            setState(() {
+              cardState = FloatingPullUpState.hidden;
+            });
+          }),
+
       floatingActionButton: _buildFloatingActionButton(),
 
       // SpeedDial(
@@ -131,7 +144,9 @@ class THSRListState extends State<THSRList> {
         subtitle: Text(
           '${DateFormat('MM/dd HH:mm').format(thsr.datetime_from)} - ${DateFormat('MM/dd HH:mm').format(thsr.datetime_to)}\n${thsr.note}',
         ),
-        onTap: null,
+        onTap: () {
+          // _showInfoCard(thsr);
+        },
       ),
       background: Container(
         padding: EdgeInsets.all(10.0),
@@ -162,7 +177,6 @@ class THSRListState extends State<THSRList> {
     );
   }
 
-  
   Widget _buildCenterAddButton() {
     return Container(
         alignment: Alignment.center,
@@ -195,11 +209,47 @@ class THSRListState extends State<THSRList> {
                 print(allTranslations.locale);
                 print(Localizations.localeOf(context).toString());
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => THSRForm(null,null)));
+                    builder: (BuildContext context) => THSRForm(null, null)));
               }),
         ));
   }
 
+  void _showInfoCard(THSR thsr) {
+    // setState(() {
+    //   card = Card(
+    //     child: Column(
+    //       mainAxisSize: MainAxisSize.min,
+    //       children: <Widget>[
+    //         const ListTile(
+    //           leading: Icon(Icons.album),
+    //           title: Text('The Enchanted Nightingale'),
+    //           subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
+    //         ),
+    //       ],
+    //     ),
+    //   );
+    //   cardState = FloatingPullUpState.uncollapsed;
+    // });
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Center(
+            child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                    padding: EdgeInsets.all(30.0),
+                    child: Card(
+                      child: Container(
+                          padding: EdgeInsets.all(30.0),
+                          child: Column(
+                            children: [Text(thsr.trainNo)],
+                          )),
+                    ))));
+      },
+    );
+  }
 
   Future<bool> _deleteCheck(BuildContext context, THSR thsr) {
     return showDialog<bool>(
