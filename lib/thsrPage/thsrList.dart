@@ -96,7 +96,7 @@ class THSRListState extends State<THSRList> {
           child: Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => THSRForm(null, null)));
+                builder: (BuildContext context) => THSRForm(null, null,null)));
           });
     }
   }
@@ -125,7 +125,6 @@ class THSRListState extends State<THSRList> {
 
   Widget _buildRow(THSR thsr) {
     return Dismissible(
-      direction: DismissDirection.endToStart,
       child: ListTile(
         // leading: _infectLevelIcon(thsr.infection_level),
         title: Text('${thsr.trainNo} ${thsr.departure} - ${thsr.destination}'),
@@ -136,7 +135,7 @@ class THSRListState extends State<THSRList> {
           _showInfoCard(thsr);
         },
       ),
-      background: Container(
+      secondaryBackground: Container(
         padding: EdgeInsets.all(10.0),
         child: Align(
           alignment: Alignment.centerRight,
@@ -144,18 +143,20 @@ class THSRListState extends State<THSRList> {
         ),
         color: Colors.red,
       ),
-      // secondaryBackground: Container(
-      //   padding: EdgeInsets.all(10.0),
-      //   child: Align(
-      //     alignment: Alignment.centerLeft,
-      //     child: Icon(Icons.edit),
-      //   ),
-      //   color: Colors.green,
-      // ),
+      background: Container(
+        padding: EdgeInsets.all(10.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Icon(Icons.edit),
+        ),
+        color: Colors.green,
+      ),
       key: ValueKey(thsr.local_id),
       confirmDismiss: (direction) async {
         if (direction == DismissDirection.startToEnd) {
           // edit item
+           Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => THSRForm(null, null, thsr)));
           return false;
         } else if (direction == DismissDirection.endToStart) {
           // delete item
@@ -197,7 +198,7 @@ class THSRListState extends State<THSRList> {
                 print(allTranslations.locale);
                 print(Localizations.localeOf(context).toString());
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => THSRForm(null, null)));
+                    builder: (BuildContext context) => THSRForm(null, null,null)));
               }),
         ));
   }

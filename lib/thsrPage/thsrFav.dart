@@ -106,7 +106,7 @@ class THSRFavState extends State<THSRFav> {
           Navigator.of(context).pop();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => THSRForm(
-                  favStations['departure'], favStations['destination'])));
+                  favStations['departure'], favStations['destination'],null)));
         },
       ),
       background: Container(

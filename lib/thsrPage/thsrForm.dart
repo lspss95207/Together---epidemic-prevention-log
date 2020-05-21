@@ -25,8 +25,9 @@ import 'thsr.dart';
 class THSRForm extends StatefulWidget {
   final String departure;
   final String destination;
+  final THSR thsr;
 
-  const THSRForm(this.departure, this.destination);
+  const THSRForm(this.departure, this.destination, this.thsr);
 
   @override
   State createState() => THSRFormState();
@@ -41,16 +42,19 @@ class THSRFormState extends State<THSRForm> {
     '台北 Taipei': '1000',
     '板橋 Banqiao': '1010',
     '桃園 Taoyuan': '1020',
-    '新竹 Hsinchu	': '1030',
+    '新竹 Hsinchu': '1030',
     '苗栗 Miaoli': '1035',
-    '台中 Taichung	': '1040',
-    '彰化 Changhua	': '1043',
+    '台中 Taichung': '1040',
+    '彰化 Changhua': '1043',
     '雲林 Yunlin': '1047',
     '嘉義 Chiayi': '1050',
     '台南 Tainan': '1060',
     '左營 Zuoying': '1070'
   };
 
+  bool editMode;
+
+  THSR thsr;
   String departure;
   String destination;
   DateTime departure_time;
@@ -64,12 +68,30 @@ class THSRFormState extends State<THSRForm> {
   @override
   void initState() {
     super.initState();
-    departure = widget.departure;
-    destination = widget.destination;
-    departure_time = DateTime.now();
+
+    thsr = widget.thsr;
+    if (thsr != null) {
+      departure = thsr.departure;
+      destination = thsr.destination;
+      departure_time = thsr.datetime_from;
+      car_number = thsr.car_number;
+      note = thsr.note;
+      editMode = true;
+    } else {
+      departure = widget.departure;
+      destination = widget.destination;
+      departure_time = DateTime.now();
+      editMode = false;
+    }
+
     Future.delayed(const Duration(milliseconds: 300), () {
       _getTHSRSchedule();
     });
+    Future.delayed(const Duration(milliseconds: 600), () {
+      submitTHSRTrainNo = thsr.trainNo;
+      print(submitTHSRTrainNo);
+    });
+    
   }
 
   @override
@@ -283,6 +305,7 @@ class THSRFormState extends State<THSRForm> {
           ),
 
           TextFormField(
+            initialValue: note,
             decoration: InputDecoration(
               icon: Icon(Icons.edit),
               hintText: allTranslations.text('Please enter Note'),
@@ -441,6 +464,9 @@ class THSRFormState extends State<THSRForm> {
     if (!_formKey.currentState.validate()) {
       return;
     } else {
+      if(editMode){
+        THSRService().deleteTHSR(thsr);
+      }
       THSR submitTHSR;
       if (submitTHSRTrainNo != null) {
         submitTHSR = _thsrDropdownMap[submitTHSRTrainNo];
