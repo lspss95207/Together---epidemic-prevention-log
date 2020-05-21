@@ -87,10 +87,12 @@ class THSRFormState extends State<THSRForm> {
     Future.delayed(const Duration(milliseconds: 300), () {
       _getTHSRSchedule();
     });
-    Future.delayed(const Duration(milliseconds: 600), () {
-      submitTHSRTrainNo = thsr.trainNo;
-      print(submitTHSRTrainNo);
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      setState(() {
+        submitTHSRTrainNo = thsr.trainNo;
+      });
     });
+    
     
   }
 

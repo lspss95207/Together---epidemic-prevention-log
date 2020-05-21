@@ -8,8 +8,6 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/foundation.dart';
-import 'package:google_maps_place_picker/google_maps_place_picker.dart';
-// import 'package:place_picker/place_picker.dart';
 
 import 'package:virus_tracker/locationPage/locationService.dart';
 import 'package:virus_tracker/locationPage/location.dart';
@@ -22,8 +20,10 @@ class LocationForm extends StatefulWidget {
   final String latitude;
   final String longitude;
   final String location_name;
+  final Location location;
 
-  const LocationForm(this.latitude, this.longitude, this.location_name);
+  const LocationForm(
+      this.latitude, this.longitude, this.location_name, this.location);
 
   @override
   State createState() => LocationFormState();
@@ -34,6 +34,11 @@ class LocationFormState extends State<LocationForm> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final Location _submitLocation = Location();
+  Location location;
+  String name;
+  String note;
+
+  bool editMode;
 
   GoogleMapController mapController;
   Marker _marker;
@@ -45,18 +50,36 @@ class LocationFormState extends State<LocationForm> {
   @override
   void initState() {
     super.initState();
-    _submitLocation.datetime_from = DateTime.now();
+
     rootBundle.loadString('assets/dark_map_style.json').then((string) {
       _darkMapStyle = string;
     });
-    if (widget.latitude != null && widget.longitude != null) {
-      double lat = double.tryParse(widget.latitude);
-      double lng = double.tryParse(widget.longitude);
-      if (lat != null && lng != null) {
-        _submitLatlng = LatLng(lat, lng);
-        _addMarker(_submitLatlng);
-      }
+
+    location = widget.location;
+
+    if (location != null) {
+      name = location.location_name;
+      _submitLocation.datetime_from = location.datetime_from;
+      _submitLocation.datetime_to = location.datetime_to;
+      _submitLocation.location_name = location.location_name;
+      _submitLatlng = LatLng(location.latitude, location.longitude);
+      _submitLocation.type = location.type;
+      _addMarker(_submitLatlng);
+      note = location.note;
+      editMode = true;
+    } else {
+      name = widget.location_name;
+      _submitLocation.datetime_from = DateTime.now();
       _submitLocation.location_name = widget.location_name;
+      if (widget.latitude != null && widget.longitude != null) {
+        double lat = double.tryParse(widget.latitude);
+        double lng = double.tryParse(widget.longitude);
+        if (lat != null && lng != null) {
+          _submitLatlng = LatLng(lat, lng);
+          _addMarker(_submitLatlng);
+        }
+      }
+      editMode = false;
     }
   }
 
@@ -182,8 +205,7 @@ class LocationFormState extends State<LocationForm> {
 
           //-----------location name------------------
           TextFormField(
-            initialValue:
-                (widget.location_name == null) ? '' : widget.location_name,
+            initialValue: name,
             decoration: InputDecoration(
               icon: Icon(Icons.location_on),
               hintText: allTranslations.text('Please enter Location Name'),
@@ -248,7 +270,7 @@ class LocationFormState extends State<LocationForm> {
           //-----------datetime to------------------
 
           DateTimeField(
-            initialValue: _submitLocation.datetime_from,
+            initialValue: editMode?location.datetime_to:_submitLocation.datetime_from,
             decoration: InputDecoration(
               icon: Icon(Icons.calendar_today),
               hintText:
@@ -325,6 +347,7 @@ class LocationFormState extends State<LocationForm> {
 
           //-------------people with-----------------------
           TextFormField(
+            initialValue: note,
             decoration: InputDecoration(
               icon: Icon(Icons.edit),
               hintText: allTranslations.text('Please enter Note'),
@@ -382,6 +405,9 @@ class LocationFormState extends State<LocationForm> {
       showMessage(allTranslations.text('Please select a location on the map.'));
     } else {
       //This invokes each onSaved event
+      if(editMode){
+        LocationService().deleteLocation(location);
+      }
       _submitLocation.note =
           (_submitLocation.note == null) ? '' : _submitLocation.note;
       print(_submitLocation.toJson());

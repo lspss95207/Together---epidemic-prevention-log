@@ -85,7 +85,7 @@ class KaohsiungMetroListState extends State<KaohsiungMetroList> {
     );
   }
 
-    Widget _buildFloatingActionButton() {
+  Widget _buildFloatingActionButton() {
     if (_metrolist.isEmpty) {
       return null;
     } else {
@@ -93,7 +93,8 @@ class KaohsiungMetroListState extends State<KaohsiungMetroList> {
           child: Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => KaohsiungMetroForm(null,null)));
+                builder: (BuildContext context) =>
+                    KaohsiungMetroForm(null, null, null)));
           });
     }
   }
@@ -122,14 +123,16 @@ class KaohsiungMetroListState extends State<KaohsiungMetroList> {
   Widget _buildRow(Metro metro) {
     // print(metro.toJson());
     return Dismissible(
-      direction: DismissDirection.endToStart,
       child: ListTile(
         // leading: _infectLevelIcon(metro.infection_level),
         title: Text(metro.departure + ' - ' + metro.destination),
-        subtitle: Text('${DateFormat('MM/dd HH:mm').format(metro.datetime_from)} - ${DateFormat('MM/dd HH:mm').format(metro.datetime_to)}\n${metro.note}'),
-        onTap: null,
+        subtitle: Text(
+            '${DateFormat('MM/dd HH:mm').format(metro.datetime_from)} - ${DateFormat('MM/dd HH:mm').format(metro.datetime_to)}\n${metro.note}'),
+        onTap: () {
+          _showInfoCard(metro);
+        },
       ),
-      background: Container(
+      secondaryBackground: Container(
         padding: EdgeInsets.all(10.0),
         child: Align(
           alignment: Alignment.centerRight,
@@ -137,17 +140,20 @@ class KaohsiungMetroListState extends State<KaohsiungMetroList> {
         ),
         color: Colors.red,
       ),
-      // secondaryBackground: Container(
-      //   padding: EdgeInsets.all(10.0),
-      //   child: Align(
-      //     alignment: Alignment.centerLeft,
-      //     child: Icon(Icons.edit),
-      //   ),
-      //   color: Colors.green,
-      // ),
+      background: Container(
+        padding: EdgeInsets.all(10.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Icon(Icons.edit),
+        ),
+        color: Colors.green,
+      ),
       key: ValueKey(metro.local_id),
       confirmDismiss: (direction) async {
         if (direction == DismissDirection.startToEnd) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) =>
+                  KaohsiungMetroForm(null, null, metro)));
           // edit item
           return false;
         } else if (direction == DismissDirection.endToStart) {
@@ -157,7 +163,6 @@ class KaohsiungMetroListState extends State<KaohsiungMetroList> {
       },
     );
   }
-
 
   Widget _buildCenterAddButton() {
     return Container(
@@ -191,9 +196,72 @@ class KaohsiungMetroListState extends State<KaohsiungMetroList> {
                 print(allTranslations.locale);
                 print(Localizations.localeOf(context).toString());
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => KaohsiungMetroForm(null,null)));
+                    builder: (BuildContext context) =>
+                        KaohsiungMetroForm(null, null, null)));
               }),
         ));
+  }
+
+  void _showInfoCard(Metro metro) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Center(
+            child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.5,
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Card(
+                      child: Container(
+                        padding: EdgeInsets.all(15.0),
+                        child: ListView(
+                          children: [
+                            ListTile(
+                              title: Text(
+                                  allTranslations
+                                      .text('Depature and Destination'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.location_on),
+                              subtitle: Text(
+                                '${metro.departure} - ${metro.destination}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            Divider(),
+                            ListTile(
+                              title: Text(allTranslations.text('Time Period'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.access_time),
+                              subtitle: Text(
+                                '${DateFormat('yyyy/MM/dd HH:mm').format(metro.datetime_from)} - ${DateFormat('yyyy/MM/dd HH:mm').format(metro.datetime_to)}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(allTranslations.text('Note'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.edit),
+                              subtitle: Text(
+                                metro.note == ''
+                                    ? allTranslations.text('Empty')
+                                    : metro.note,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ))));
+      },
+    );
   }
 
   Future<bool> _deleteCheck(BuildContext context, Metro metro) {
@@ -202,7 +270,8 @@ class KaohsiungMetroListState extends State<KaohsiungMetroList> {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(allTranslations.text('Do you want to delete Metro record?')),
+          title:
+              Text(allTranslations.text('Do you want to delete Metro record?')),
           actions: <Widget>[
             FlatButton(
               child: Text(allTranslations.text('Confirm')),

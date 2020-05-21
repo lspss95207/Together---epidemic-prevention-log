@@ -25,8 +25,9 @@ import 'package:virus_tracker/all_translations.dart';
 class TaipeiMetroForm extends StatefulWidget {
   final String departure;
   final String destination;
+  final Metro metro;
 
-  const TaipeiMetroForm(this.departure, this.destination);
+  const TaipeiMetroForm(this.departure, this.destination, this.metro);
 
   @override
   State createState() => TaipeiMetroFormState();
@@ -41,7 +42,11 @@ class TaipeiMetroFormState extends State<TaipeiMetroForm> {
 
   String departure;
   String destination;
+  String note;
   Metro _submitMetro = Metro();
+  Metro metro;
+
+  bool editMode;
 
   Map<String, Metro> _DropdownMap = {};
   List<String> _metroDropdownList = [];
@@ -49,10 +54,21 @@ class TaipeiMetroFormState extends State<TaipeiMetroForm> {
   @override
   void initState() {
     super.initState();
-    _submitMetro.datetime_from = DateTime.now();
     _readMetroStations();
-    departure = widget.departure;
-    destination = widget.destination;
+    metro = widget.metro;
+    if (metro != null) {
+      departure = metro.departure;
+      destination = metro.destination;
+      _submitMetro.datetime_from = metro.datetime_from;
+      _submitMetro.datetime_to = metro.datetime_to;
+      note = metro.note;
+      editMode = true;
+    } else {
+      departure = widget.departure;
+      destination = widget.destination;
+      _submitMetro.datetime_from = DateTime.now();
+      editMode = false;
+    }
   }
 
   @override
@@ -186,7 +202,7 @@ class TaipeiMetroFormState extends State<TaipeiMetroForm> {
           //-----------datetime to------------------
 
           DateTimeField(
-            initialValue: _submitMetro.datetime_from,
+            initialValue: (metro==null)?_submitMetro.datetime_from:metro.datetime_to,
             decoration: InputDecoration(
               icon: Icon(Icons.calendar_today),
               hintText: allTranslations.text('Please enter Date Time to-metro'),
@@ -225,6 +241,7 @@ class TaipeiMetroFormState extends State<TaipeiMetroForm> {
           ),
 
           TextFormField(
+            initialValue: note,
             decoration: InputDecoration(
               icon: Icon(Icons.edit),
               hintText: allTranslations.text('Please enter Note'),
@@ -250,7 +267,8 @@ class TaipeiMetroFormState extends State<TaipeiMetroForm> {
 
   void _readMetroStations() async {
     _metroStationPath = {};
-    var data = await rootBundle.loadString('assets/taipeiMetroStations.json');
+    var data =
+        await rootBundle.loadString('assets/taipeiMetroStations.json');
     final station_raw = json.decode(data);
     setState(() {
       for (var station in station_raw) {
@@ -290,7 +308,8 @@ class TaipeiMetroFormState extends State<TaipeiMetroForm> {
             foregroundPainter:
                 MyPainter(_metroStationPath, departure, destination),
             child: ImageMap(
-              image: Image.asset('assets/TaipeiMetroMap_${globals.theme}.jpg',
+              image: Image.asset(
+                  'assets/TaipeiMetroMap_${globals.theme}.jpg',
                   fit: BoxFit.contain),
               onTap: (val) {
                 // _readMetroStations();
@@ -342,11 +361,14 @@ class TaipeiMetroFormState extends State<TaipeiMetroForm> {
     if (!_formKey.currentState.validate()) {
       return;
     } else if (departure == null) {
-      showMessage(allTranslations.text('Please enter Departure.'));
+      showMessage(allTranslations.text('Please enter Departure'));
     } else if (destination == null) {
-      showMessage(allTranslations.text('Please enter Destination.'));
+      showMessage(allTranslations.text('Please enter Destination'));
     } else {
       //This invokes each onSaved event
+      if(editMode){
+        TaipeiMetroService().deleteMetro(metro);
+      }
       _submitMetro.note = (_submitMetro.note == null) ? '' : _submitMetro.note;
       _submitMetro.departure = departure;
       _submitMetro.destination = destination;

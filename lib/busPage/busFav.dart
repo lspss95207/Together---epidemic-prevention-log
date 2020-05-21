@@ -105,7 +105,7 @@ class BusFavState extends State<BusFav> {
           Navigator.of(context).pop();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) =>
-                  BusForm(favRoute['city'], favRoute['route'])));
+                  BusForm(favRoute['city'], favRoute['route'],null)));
         },
       ),
       background: Container(

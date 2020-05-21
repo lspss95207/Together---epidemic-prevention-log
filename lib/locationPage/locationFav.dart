@@ -106,7 +106,7 @@ class LocationFavState extends State<LocationFav> {
               builder: (BuildContext context) => LocationForm(
                   favLocations['latitude'],
                   favLocations['longitude'],
-                  favLocations['location_name'])));
+                  favLocations['location_name'],null)));
         },
       ),
       background: Container(

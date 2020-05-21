@@ -19,6 +19,9 @@ import 'package:virus_tracker/all_translations.dart';
 
 class TaxiForm extends StatefulWidget {
   @override
+  final Taxi taxi;
+  const TaxiForm(this.taxi);
+
   State createState() => TaxiFormState();
 }
 
@@ -27,6 +30,9 @@ class TaxiFormState extends State<TaxiForm> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final Taxi _submitTaxi = Taxi();
+
+  bool editMode;
+  Taxi taxi;
 
   GoogleMapController mapController;
   Marker _marker;
@@ -38,8 +44,16 @@ class TaxiFormState extends State<TaxiForm> {
   @override
   void initState() {
     super.initState();
-    _submitTaxi.datetime_from = DateTime.now();
-    _submitTaxi.datetime_to = DateTime.now();
+    taxi = widget.taxi;
+    if(taxi != null){
+      _submitTaxi.datetime_from = taxi.datetime_from;
+      _submitTaxi.datetime_to = taxi.datetime_to;
+      editMode = true;
+    }else{
+      _submitTaxi.datetime_from = DateTime.now();
+      _submitTaxi.datetime_to = DateTime.now();
+      editMode = false;
+    }
   }
 
   @override
@@ -75,6 +89,7 @@ class TaxiFormState extends State<TaxiForm> {
         children: <Widget>[
           //-----------taxi name------------------
           TextFormField(
+            initialValue: taxi.plate,
             decoration: InputDecoration(
               icon: Icon(Icons.local_taxi),
               hintText: allTranslations.text('Please enter Taxi Plate'),
@@ -90,6 +105,7 @@ class TaxiFormState extends State<TaxiForm> {
             onSaved: (val) => _submitTaxi.plate = val,
           ),
           TextFormField(
+            initialValue: taxi.departure,
             decoration: InputDecoration(
               icon: Icon(Icons.local_taxi),
               hintText: allTranslations.text('Please enter Departure-taxi'),
@@ -99,6 +115,7 @@ class TaxiFormState extends State<TaxiForm> {
             onSaved: (val) => _submitTaxi.departure = val,
           ),
           TextFormField(
+            initialValue: taxi.destination,
             decoration: InputDecoration(
               icon: Icon(Icons.local_taxi),
               hintText: allTranslations.text('Please enter Destination-taxi'),
@@ -187,6 +204,7 @@ class TaxiFormState extends State<TaxiForm> {
 
           //-------------people with-----------------------
           TextFormField(
+            initialValue: taxi.note,
             decoration: InputDecoration(
               icon: Icon(Icons.edit),
               hintText: allTranslations.text('Please enter Note'),
@@ -215,6 +233,9 @@ class TaxiFormState extends State<TaxiForm> {
     if (!_formKey.currentState.validate()) {
       return;
     } else {
+      if(editMode){
+        TaxiService().deleteTaxi(taxi);
+      }
       //This invokes each onSaved event
       _submitTaxi.note = (_submitTaxi.note == null) ? '' : _submitTaxi.note;
       print(_submitTaxi.toJson());

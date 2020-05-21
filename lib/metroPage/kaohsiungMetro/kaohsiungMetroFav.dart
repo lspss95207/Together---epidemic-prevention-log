@@ -107,7 +107,7 @@ class MetroFavState extends State<MetroFav> {
           Navigator.of(context).pop();
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => KaohsiungMetroForm(
-                  favStations['departure'], favStations['destination'])));
+                  favStations['departure'], favStations['destination'],null)));
         },
       ),
       background: Container(

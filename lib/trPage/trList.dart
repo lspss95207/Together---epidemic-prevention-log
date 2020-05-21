@@ -41,53 +41,53 @@ class TRListState extends State<TRList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: Text(allTranslations.text('Taiwan Railways Record'),
-              textAlign: TextAlign.center),
-        ),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: _buildTRList(),
-        ),
-        floatingActionButton: _buildFloatingActionButton(),
-        // SpeedDial(
-        //   animatedIcon: AnimatedIcons.menu_close,
-        //   animatedIconTheme: IconThemeData(size: 22.0),
-        //   // child: Icon(Icons.add),
-        //   curve: Curves.bounceIn,
-        //   overlayOpacity: 0.3,
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: Text(allTranslations.text('Taiwan Railways Record'),
+            textAlign: TextAlign.center),
+      ),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: _buildTRList(),
+      ),
+      floatingActionButton: _buildFloatingActionButton(),
+      // SpeedDial(
+      //   animatedIcon: AnimatedIcons.menu_close,
+      //   animatedIconTheme: IconThemeData(size: 22.0),
+      //   // child: Icon(Icons.add),
+      //   curve: Curves.bounceIn,
+      //   overlayOpacity: 0.3,
 
-        //   children: [
-        //     SpeedDialChild(
-        //       child: Icon(Icons.add, color: Colors.white),
-        //       backgroundColor: Colors.deepOrange,
-        //       onTap: () {
-        //         Navigator.of(context).push(MaterialPageRoute(
-        //             builder: (BuildContext context) => TRForm(null, null)));
-        //       },
-        //       label: '新增紀錄',
-        //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
-        //       labelBackgroundColor: Colors.deepOrangeAccent,
-        //     ),
-        //     SpeedDialChild(
-        //       child: Icon(Icons.brush, color: Colors.white),
-        //       backgroundColor: Colors.green,
-        //       onTap: () {
-        //         Navigator.of(context).push(MaterialPageRoute(
-        //             builder: (BuildContext context) => TRFav()));
-        //       },
-        //       label: '常用起訖站',
-        //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
-        //       labelBackgroundColor: Colors.green,
-        //     ),
-        //   ],
-        // )
-        );
+      //   children: [
+      //     SpeedDialChild(
+      //       child: Icon(Icons.add, color: Colors.white),
+      //       backgroundColor: Colors.deepOrange,
+      //       onTap: () {
+      //         Navigator.of(context).push(MaterialPageRoute(
+      //             builder: (BuildContext context) => TRForm(null, null)));
+      //       },
+      //       label: '新增紀錄',
+      //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
+      //       labelBackgroundColor: Colors.deepOrangeAccent,
+      //     ),
+      //     SpeedDialChild(
+      //       child: Icon(Icons.brush, color: Colors.white),
+      //       backgroundColor: Colors.green,
+      //       onTap: () {
+      //         Navigator.of(context).push(MaterialPageRoute(
+      //             builder: (BuildContext context) => TRFav()));
+      //       },
+      //       label: '常用起訖站',
+      //       labelStyle: TextStyle(fontWeight: FontWeight.w500),
+      //       labelBackgroundColor: Colors.green,
+      //     ),
+      //   ],
+      // )
+    );
   }
 
-    Widget _buildFloatingActionButton() {
+  Widget _buildFloatingActionButton() {
     if (_trlist.isEmpty) {
       return null;
     } else {
@@ -95,7 +95,7 @@ class TRListState extends State<TRList> {
           child: Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => TRForm(null,null)));
+                builder: (BuildContext context) => TRForm(null, null, null)));
           });
     }
   }
@@ -123,7 +123,6 @@ class TRListState extends State<TRList> {
 
   Widget _buildRow(TR tr) {
     return Dismissible(
-      direction: DismissDirection.endToStart,
       child: ListTile(
         // leading: _infectLevelIcon(tr.infection_level),
         title: Text(
@@ -132,10 +131,11 @@ class TRListState extends State<TRList> {
         subtitle: Text(
           '${DateFormat('MM/dd HH:mm').format(tr.datetime_from)} - ${DateFormat('MM/dd HH:mm').format(tr.datetime_to)}\n${tr.note}',
         ),
-        onTap: null,
+        onTap: () {
+          _showInfoCard(tr);
+        },
       ),
-
-      background: Container(
+      secondaryBackground: Container(
         padding: EdgeInsets.all(10.0),
         child: Align(
           alignment: Alignment.centerRight,
@@ -143,17 +143,19 @@ class TRListState extends State<TRList> {
         ),
         color: Colors.red,
       ),
-      // secondaryBackground: Container(
-      //   padding: EdgeInsets.all(10.0),
-      //   child: Align(
-      //     alignment: Alignment.centerLeft,
-      //     child: Icon(Icons.edit),
-      //   ),
-      //   color: Colors.green,
-      // ),
+      background: Container(
+        padding: EdgeInsets.all(10.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Icon(Icons.edit),
+        ),
+        color: Colors.green,
+      ),
       key: ValueKey(tr.local_id),
       confirmDismiss: (direction) async {
         if (direction == DismissDirection.startToEnd) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => TRForm(null, null, tr)));
           // edit item
           return false;
         } else if (direction == DismissDirection.endToStart) {
@@ -164,7 +166,6 @@ class TRListState extends State<TRList> {
     );
   }
 
-  
   Widget _buildCenterAddButton() {
     return Container(
         alignment: Alignment.center,
@@ -197,11 +198,97 @@ class TRListState extends State<TRList> {
                 print(allTranslations.locale);
                 print(Localizations.localeOf(context).toString());
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => TRForm(null,null)));
+                    builder: (BuildContext context) =>
+                        TRForm(null, null, null)));
               }),
         ));
   }
 
+  void _showInfoCard(TR tr) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Center(
+            child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Card(
+                      child: Container(
+                        padding: EdgeInsets.all(15.0),
+                        child: ListView(
+                          children: [
+                            ListTile(
+                              title: Text(allTranslations.text('Train No.'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              subtitle: Text(
+                                tr.trainNo == ''
+                                    ? allTranslations.text('Empty')
+                                    : tr.trainNo,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              leading: Icon(Icons.train),
+                            ),
+                            Divider(),
+                            ListTile(
+                              title: Text(
+                                  allTranslations
+                                      .text('Depature and Destination'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.location_on),
+                              subtitle: Text(
+                                '${tr.departure} - ${tr.destination}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(allTranslations.text('Time Period'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.access_time),
+                              subtitle: Text(
+                                '${DateFormat('yyyy/MM/dd HH:mm').format(tr.datetime_from)} - ${DateFormat('yyyy/MM/dd HH:mm').format(tr.datetime_to)}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(allTranslations.text('Car Number'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.train),
+                              subtitle: Text(
+                                tr.car_number,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(allTranslations.text('Note'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.edit),
+                              subtitle: Text(
+                                tr.note == ''
+                                    ? allTranslations.text('Empty')
+                                    : tr.note,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ))));
+      },
+    );
+  }
 
   Future<bool> _deleteCheck(BuildContext context, TR tr) {
     return showDialog<bool>(

@@ -25,8 +25,9 @@ import 'package:virus_tracker/all_translations.dart';
 class KaohsiungMetroForm extends StatefulWidget {
   final String departure;
   final String destination;
+  final Metro metro;
 
-  const KaohsiungMetroForm(this.departure, this.destination);
+  const KaohsiungMetroForm(this.departure, this.destination, this.metro);
 
   @override
   State createState() => KaohsiungMetroFormState();
@@ -41,7 +42,11 @@ class KaohsiungMetroFormState extends State<KaohsiungMetroForm> {
 
   String departure;
   String destination;
+  String note;
   Metro _submitMetro = Metro();
+  Metro metro;
+
+  bool editMode;
 
   Map<String, Metro> _DropdownMap = {};
   List<String> _metroDropdownList = [];
@@ -49,10 +54,21 @@ class KaohsiungMetroFormState extends State<KaohsiungMetroForm> {
   @override
   void initState() {
     super.initState();
-    _submitMetro.datetime_from = DateTime.now();
     _readMetroStations();
-    departure = widget.departure;
-    destination = widget.destination;
+    metro = widget.metro;
+    if (metro != null) {
+      departure = metro.departure;
+      destination = metro.destination;
+      _submitMetro.datetime_from = metro.datetime_from;
+      _submitMetro.datetime_to = metro.datetime_to;
+      note = metro.note;
+      editMode = true;
+    } else {
+      departure = widget.departure;
+      destination = widget.destination;
+      _submitMetro.datetime_from = DateTime.now();
+      editMode = false;
+    }
   }
 
   @override
@@ -186,7 +202,7 @@ class KaohsiungMetroFormState extends State<KaohsiungMetroForm> {
           //-----------datetime to------------------
 
           DateTimeField(
-            initialValue: _submitMetro.datetime_from,
+            initialValue: (metro==null)?_submitMetro.datetime_from:metro.datetime_to,
             decoration: InputDecoration(
               icon: Icon(Icons.calendar_today),
               hintText: allTranslations.text('Please enter Date Time to-metro'),
@@ -225,6 +241,7 @@ class KaohsiungMetroFormState extends State<KaohsiungMetroForm> {
           ),
 
           TextFormField(
+            initialValue: note,
             decoration: InputDecoration(
               icon: Icon(Icons.edit),
               hintText: allTranslations.text('Please enter Note'),
@@ -349,6 +366,9 @@ class KaohsiungMetroFormState extends State<KaohsiungMetroForm> {
       showMessage(allTranslations.text('Please enter Destination'));
     } else {
       //This invokes each onSaved event
+      if(editMode){
+        KaohsiungMetroService().deleteMetro(metro);
+      }
       _submitMetro.note = (_submitMetro.note == null) ? '' : _submitMetro.note;
       _submitMetro.departure = departure;
       _submitMetro.destination = destination;

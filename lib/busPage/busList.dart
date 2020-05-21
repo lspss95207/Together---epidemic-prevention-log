@@ -95,7 +95,7 @@ class BusListState extends State<BusList> {
           child: Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => BusForm(null, null)));
+                builder: (BuildContext context) => BusForm(null, null, null)));
           });
     }
   }
@@ -123,16 +123,17 @@ class BusListState extends State<BusList> {
 
   Widget _buildRow(Bus bus) {
     return Dismissible(
-      direction: DismissDirection.endToStart,
       child: ListTile(
         // leading: _infectLevelIcon(bus.infection_level),
         title: Text(
             '${bus.route}  ${allTranslations.text('to')} ${bus.direction}'),
         subtitle: Text(
             '${DateFormat('MM/dd HH:mm').format(bus.datetime_from)} - ${DateFormat('MM/dd HH:mm').format(bus.datetime_to)}\n${bus.note}'),
-        onTap: null,
+        onTap: () {
+          _showInfoCard(bus);
+        },
       ),
-      background: Container(
+      secondaryBackground: Container(
         padding: EdgeInsets.all(10.0),
         child: Align(
           alignment: Alignment.centerRight,
@@ -140,17 +141,19 @@ class BusListState extends State<BusList> {
         ),
         color: Colors.red,
       ),
-      // secondaryBackground: Container(
-      //   padding: EdgeInsets.all(10.0),
-      //   child: Align(
-      //     alignment: Alignment.centerLeft,
-      //     child: Icon(Icons.edit),
-      //   ),
-      //   color: Colors.green,
-      // ),
+      background: Container(
+        padding: EdgeInsets.all(10.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Icon(Icons.edit),
+        ),
+        color: Colors.green,
+      ),
       key: ValueKey(bus.local_id),
       confirmDismiss: (direction) async {
         if (direction == DismissDirection.startToEnd) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => BusForm(null, null, bus)));
           // edit item
           return false;
         } else if (direction == DismissDirection.endToStart) {
@@ -193,9 +196,81 @@ class BusListState extends State<BusList> {
                 print(allTranslations.locale);
                 print(Localizations.localeOf(context).toString());
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => BusForm(null,null)));
+                    builder: (BuildContext context) =>
+                        BusForm(null, null, null)));
               }),
         ));
+  }
+
+  void _showInfoCard(Bus bus) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Center(
+            child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.6,
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Card(
+                      child: Container(
+                        padding: EdgeInsets.all(15.0),
+                        child: ListView(
+                          children: [
+                            ListTile(
+                              title: Text(allTranslations.text('Route'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              subtitle: Text(
+                                bus.route,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              leading: Icon(Icons.directions_bus),
+                            ),
+                            Divider(),
+                            ListTile(
+                              title: Text(allTranslations.text('Direction'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.location_on),
+                              subtitle: Text(
+                                bus.direction,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(allTranslations.text('Time Period'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.access_time),
+                              subtitle: Text(
+                                '${DateFormat('yyyy/MM/dd HH:mm').format(bus.datetime_from)} - ${DateFormat('yyyy/MM/dd HH:mm').format(bus.datetime_to)}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(allTranslations.text('Note'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.edit),
+                              subtitle: Text(
+                                bus.note == ''
+                                    ? allTranslations.text('Empty')
+                                    : bus.note,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ))));
+      },
+    );
   }
 
   Future<bool> _deleteCheck(BuildContext context, Bus bus) {

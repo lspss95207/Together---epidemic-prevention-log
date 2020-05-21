@@ -25,8 +25,9 @@ class TRForm extends StatefulWidget {
   @override
   final String departure;
   final String destination;
+  final TR tr;
 
-  const TRForm(this.departure, this.destination);
+  const TRForm(this.departure, this.destination, this.tr);
 
   State createState() => TRFormState();
 }
@@ -66,6 +67,8 @@ class TRFormState extends State<TRForm> {
     '連江縣LienchiangCounty'
   ];
 
+  bool editMode;
+
   String departure;
   String departure_city;
   String destination;
@@ -74,6 +77,7 @@ class TRFormState extends State<TRForm> {
   String car_number;
   String submitTRTrainNo;
   String note;
+  TR tr;
 
   Map<String, TR> _trDropdownMap = {};
   List<String> _trDropdownList = [];
@@ -82,6 +86,13 @@ class TRFormState extends State<TRForm> {
     super.initState();
     _readTRStations();
     departure_time = DateTime.now();
+    tr = widget.tr;
+    if (tr != null) {
+      car_number = tr.car_number;
+      note = tr.note;
+      editMode = true;
+      submitTRTrainNo = tr.trainNo;
+    }
     Future.delayed(const Duration(milliseconds: 300), () {
       setState(() {
         _destinationStationList = [];
@@ -91,8 +102,16 @@ class TRFormState extends State<TRForm> {
         });
       });
 
-      departure = widget.departure;
-      destination = widget.destination;
+      if (tr != null) {
+        departure = tr.departure;
+        destination = tr.destination;
+        departure_time = tr.datetime_from;
+      } else {
+        departure = widget.departure;
+        destination = widget.destination;
+        departure_time = DateTime.now();
+        editMode = false;
+      }
 
       if (departure != null && destination != null) {
         departure_city = '全部All';
@@ -577,6 +596,9 @@ class TRFormState extends State<TRForm> {
     } else if (destination == null) {
       showMessage(allTranslations.text('Please enter Destination'));
     } else {
+      if (editMode) {
+        TRService().deleteTR(tr);
+      }
       TR submitTR;
       if (submitTRTrainNo == null || submitTRTrainNo == '') {
         submitTR = TR();

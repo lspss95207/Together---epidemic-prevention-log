@@ -22,8 +22,9 @@ import 'package:virus_tracker/all_translations.dart';
 class BusForm extends StatefulWidget {
   final String city;
   final String route;
+  final Bus bus;
 
-  const BusForm(this.city, this.route);
+  const BusForm(this.city, this.route, this.bus);
   @override
   State createState() => BusFormState();
 }
@@ -35,10 +36,14 @@ class BusFormState extends State<BusForm> {
   final Map<String, Map> _cityRoutes = {};
 
   final Bus _submitBus = Bus();
+  Bus bus;
+
+  bool editMode;
 
   String city;
   String route;
   String direction;
+  String note;
 
   Map<String, Bus> _busDropdownMap = {};
   List<String> _busDropdownList = [];
@@ -47,12 +52,29 @@ class BusFormState extends State<BusForm> {
   @override
   void initState() {
     super.initState();
+
+    bus = widget.bus;
+
     _readBusRoutes();
-    _submitBus.datetime_from = DateTime.now();
+
+    if (bus != null) {
+      _submitBus.datetime_from = bus.datetime_from;
+      _submitBus.datetime_to = bus.datetime_to;
+      note = bus.note;
+      editMode = true;
+    } else {
+      _submitBus.datetime_from = DateTime.now();
+      editMode = false;
+    }
 
     Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
-        city = (widget.city == null) ? null : widget.city;
+        if (bus != null) {
+          city = bus.city;
+        } else {
+          city = (widget.city == null) ? null : widget.city;
+        }
+
         _submitBus.city = city;
       });
     });
@@ -60,7 +82,13 @@ class BusFormState extends State<BusForm> {
       _getRoute();
     });
     Future.delayed(const Duration(milliseconds: 500), () {
-      route = widget.route;
+      if (bus != null) {
+        route = bus.route;
+        direction = bus.direction;
+      } else {
+        route = widget.route;
+      }
+
       _submitBus.route = route;
       _getDestination();
     });
@@ -100,9 +128,9 @@ class BusFormState extends State<BusForm> {
               width: double.infinity,
               child: RaisedButton(
                 child: Text(allTranslations.text('Favorite Routes')),
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => BusFav()));
+                      builder: (BuildContext context) => BusFav()));
                 },
               ),
             ),
@@ -208,7 +236,8 @@ class BusFormState extends State<BusForm> {
             onSaved: (val) => _submitBus.datetime_from = val,
             validator: (value) {
               if (value == null) {
-                return allTranslations.text('Date Time from cannot be empty-bus');
+                return allTranslations
+                    .text('Date Time from cannot be empty-bus');
               }
               return null;
             },
@@ -217,7 +246,7 @@ class BusFormState extends State<BusForm> {
           //-----------datetime to------------------
 
           DateTimeField(
-            initialValue: _submitBus.datetime_from,
+            initialValue: editMode?bus.datetime_to:_submitBus.datetime_from,
             decoration: InputDecoration(
               icon: Icon(Icons.calendar_today),
               hintText: allTranslations.text('Enter Date Time to-bus'),
@@ -247,13 +276,15 @@ class BusFormState extends State<BusForm> {
                 return allTranslations.text('Date time to cannot be empty-bus');
               } else if (_submitBus.datetime_from != null &&
                   value.isBefore(_submitBus.datetime_from)) {
-                return allTranslations.text('Date time to cannot be earlier than Date time from-bus');
+                return allTranslations.text(
+                    'Date time to cannot be earlier than Date time from-bus');
               }
               return null;
             },
           ),
 
           TextFormField(
+            initialValue: note,
             decoration: InputDecoration(
               icon: Icon(Icons.edit),
               hintText: allTranslations.text('Please enter Note'),
@@ -287,7 +318,8 @@ class BusFormState extends State<BusForm> {
         print(city["City"]);
         Map<String, dynamic> tmpRoute = {};
         for (var routes in city['Routes']) {
-          String key = "${routes['RouteName']['Zh_tw']}${(routes['RouteName']['En'] == routes['RouteName']['Zh_tw'])?' ':' '+routes['RouteName']['En']}";
+          String key =
+              "${routes['RouteName']['Zh_tw']}${(routes['RouteName']['En'] == routes['RouteName']['Zh_tw']) ? ' ' : ' ' + routes['RouteName']['En']}";
           tmpRoute[key] = routes;
         }
         _cityRoutes[city["City"]] = tmpRoute;
@@ -364,8 +396,10 @@ class BusFormState extends State<BusForm> {
         showMessage(allTranslations.text('Please enter Direction'));
       } else {
         //This invokes each onSaved event
-        _submitBus.note =
-            (_submitBus.note == null) ? '' : _submitBus.note;
+        if(editMode){
+          BusService().deleteBus(bus);
+        }
+        _submitBus.note = (_submitBus.note == null) ? '' : _submitBus.note;
         print(_submitBus.note);
         print(_submitBus.toJson());
         BusService().createBus(_submitBus);
@@ -380,7 +414,9 @@ class BusFormState extends State<BusForm> {
       showMessage(allTranslations.text('Please enter Route'));
     } else {
       BusService().addFavorite(_submitBus.city, _submitBus.route);
-      showMessage('${_submitBus.route} ${allTranslations.text('is added to favorite routes.')}.', Colors.blue);
+      showMessage(
+          '${_submitBus.route} ${allTranslations.text('is added to favorite routes.')}.',
+          Colors.blue);
     }
   }
 }

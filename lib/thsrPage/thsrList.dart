@@ -96,7 +96,7 @@ class THSRListState extends State<THSRList> {
           child: Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => THSRForm(null, null,null)));
+                builder: (BuildContext context) => THSRForm(null, null, null)));
           });
     }
   }
@@ -155,8 +155,8 @@ class THSRListState extends State<THSRList> {
       confirmDismiss: (direction) async {
         if (direction == DismissDirection.startToEnd) {
           // edit item
-           Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => THSRForm(null, null, thsr)));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => THSRForm(null, null, thsr)));
           return false;
         } else if (direction == DismissDirection.endToStart) {
           // delete item
@@ -198,7 +198,8 @@ class THSRListState extends State<THSRList> {
                 print(allTranslations.locale);
                 print(Localizations.localeOf(context).toString());
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => THSRForm(null, null,null)));
+                    builder: (BuildContext context) =>
+                        THSRForm(null, null, null)));
               }),
         ));
   }
@@ -275,7 +276,9 @@ class THSRListState extends State<THSRList> {
                                       fontSize: 25)),
                               leading: Icon(Icons.edit),
                               subtitle: Text(
-                                thsr.note,
+                                thsr.note == ''
+                                    ? allTranslations.text('Empty')
+                                    : thsr.note,
                                 style: TextStyle(fontSize: 20),
                               ),
                             ),
