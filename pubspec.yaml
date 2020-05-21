@@ -46,7 +46,6 @@ dependencies:
   flutter_native_splash: ^0.1.9
   shared_preferences: ^0.5.7
   dynamic_theme: ^1.0.0
-  floating_pullup_card: ^0.2.1
 
 
 

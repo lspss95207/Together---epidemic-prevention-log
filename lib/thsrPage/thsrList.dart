@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:floating_pullup_card/floating_pullup_card.dart';
 
 import 'package:virus_tracker/globals.dart' as globals;
 import 'package:virus_tracker/all_translations.dart';
@@ -24,8 +23,6 @@ class THSRListState extends State<THSRList> {
   List<THSR> _thsrlist = <THSR>[];
 
   var updatePeriod;
-  FloatingPullUpState cardState = FloatingPullUpState.hidden;
-  Widget card = Container();
 
   @override
   void initState() {
@@ -49,20 +46,11 @@ class THSRListState extends State<THSRList> {
         title: Text(allTranslations.text('THSR Record'),
             textAlign: TextAlign.center),
       ),
-      body: FloatingPullUpCardLayout(
-          child: SafeArea(
-            top: false,
-            bottom: false,
-            child: _buildTHSRList(),
-          ),
-          body: card,
-          dismissable: true,
-          state: cardState,
-          onOutsideTap: () {
-            setState(() {
-              cardState = FloatingPullUpState.hidden;
-            });
-          }),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: _buildTHSRList(),
+      ),
 
       floatingActionButton: _buildFloatingActionButton(),
 
@@ -145,7 +133,7 @@ class THSRListState extends State<THSRList> {
           '${DateFormat('MM/dd HH:mm').format(thsr.datetime_from)} - ${DateFormat('MM/dd HH:mm').format(thsr.datetime_to)}\n${thsr.note}',
         ),
         onTap: () {
-          // _showInfoCard(thsr);
+          _showInfoCard(thsr);
         },
       ),
       background: Container(
@@ -215,37 +203,84 @@ class THSRListState extends State<THSRList> {
   }
 
   void _showInfoCard(THSR thsr) {
-    // setState(() {
-    //   card = Card(
-    //     child: Column(
-    //       mainAxisSize: MainAxisSize.min,
-    //       children: <Widget>[
-    //         const ListTile(
-    //           leading: Icon(Icons.album),
-    //           title: Text('The Enchanted Nightingale'),
-    //           subtitle: Text('Music by Julie Gable. Lyrics by Sidney Stein.'),
-    //         ),
-    //       ],
-    //     ),
-    //   );
-    //   cardState = FloatingPullUpState.uncollapsed;
-    // });
     showDialog(
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
         return Center(
             child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
+                height: MediaQuery.of(context).size.height * 0.7,
                 width: MediaQuery.of(context).size.width,
                 child: Container(
-                    padding: EdgeInsets.all(30.0),
+                    padding: EdgeInsets.all(10.0),
                     child: Card(
                       child: Container(
-                          padding: EdgeInsets.all(30.0),
-                          child: Column(
-                            children: [Text(thsr.trainNo)],
-                          )),
+                        padding: EdgeInsets.all(15.0),
+                        child: ListView(
+                          children: [
+                            ListTile(
+                              title: Text(allTranslations.text('Train No.'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              subtitle: Text(
+                                thsr.trainNo == ''
+                                    ? allTranslations.text('Empty')
+                                    : thsr.trainNo,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              leading: Icon(Icons.directions_railway),
+                            ),
+                            Divider(),
+                            ListTile(
+                              title: Text(
+                                  allTranslations
+                                      .text('Depature and Destination'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.location_on),
+                              subtitle: Text(
+                                '${thsr.departure} - ${thsr.destination}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(allTranslations.text('Time Period'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.access_time),
+                              subtitle: Text(
+                                '${DateFormat('yyyy/MM/dd HH:mm').format(thsr.datetime_from)} - ${DateFormat('yyyy/MM/dd HH:mm').format(thsr.datetime_to)}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(allTranslations.text('Car Number'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.directions_railway),
+                              subtitle: Text(
+                                thsr.car_number,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                            ListTile(
+                              title: Text(allTranslations.text('Note'),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 25)),
+                              leading: Icon(Icons.edit),
+                              subtitle: Text(
+                                thsr.note,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ))));
       },
     );

@@ -31,6 +31,9 @@
     "Please enter Note": "請輸入備註",
     "Note": "備註",
     "Submit": "送出",
+    "Empty": "無填寫",
+    "Depature and Destination": "起點與終點",
+    "Time Period": "時間",
 
     "Location Record": "地點紀錄",
     "Add Location": "新增地點",
