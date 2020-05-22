@@ -89,7 +89,7 @@ class TaxiFormState extends State<TaxiForm> {
         children: <Widget>[
           //-----------taxi name------------------
           TextFormField(
-            initialValue: taxi.plate,
+            initialValue: editMode?taxi.plate:null,
             decoration: InputDecoration(
               icon: Icon(Icons.local_taxi),
               hintText: allTranslations.text('Please enter Taxi Plate'),
@@ -105,7 +105,7 @@ class TaxiFormState extends State<TaxiForm> {
             onSaved: (val) => _submitTaxi.plate = val,
           ),
           TextFormField(
-            initialValue: taxi.departure,
+            initialValue: editMode?taxi.departure:null,
             decoration: InputDecoration(
               icon: Icon(Icons.local_taxi),
               hintText: allTranslations.text('Please enter Departure-taxi'),
@@ -115,7 +115,7 @@ class TaxiFormState extends State<TaxiForm> {
             onSaved: (val) => _submitTaxi.departure = val,
           ),
           TextFormField(
-            initialValue: taxi.destination,
+            initialValue: editMode?taxi.destination:null,
             decoration: InputDecoration(
               icon: Icon(Icons.local_taxi),
               hintText: allTranslations.text('Please enter Destination-taxi'),
@@ -127,7 +127,7 @@ class TaxiFormState extends State<TaxiForm> {
 
           //-----------datetime from------------------
           DateTimeField(
-            initialValue: _submitTaxi.datetime_from,
+            initialValue: editMode?taxi.datetime_from:_submitTaxi.datetime_from,
             decoration: InputDecoration(
               icon: Icon(Icons.calendar_today),
               hintText:
@@ -164,7 +164,7 @@ class TaxiFormState extends State<TaxiForm> {
           //-----------datetime to------------------
 
           DateTimeField(
-            initialValue: _submitTaxi.datetime_from,
+            initialValue: editMode?taxi.datetime_to:_submitTaxi.datetime_from,
             decoration: InputDecoration(
               icon: Icon(Icons.calendar_today),
               hintText: allTranslations.text('Please enter date time to-taxi'),
@@ -204,7 +204,7 @@ class TaxiFormState extends State<TaxiForm> {
 
           //-------------people with-----------------------
           TextFormField(
-            initialValue: taxi.note,
+            initialValue: editMode?taxi.note:null,
             decoration: InputDecoration(
               icon: Icon(Icons.edit),
               hintText: allTranslations.text('Please enter Note'),
