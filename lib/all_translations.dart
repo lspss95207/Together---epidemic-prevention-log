@@ -10,8 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 const String _storageKey = 'virus_tracker';
 Map<String,String> _supportedLanguages = {'zh_TW':'繁體中文', 'en':'English'};
 
-text(String s) {
-}
 
 Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
