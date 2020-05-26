@@ -14,7 +14,6 @@ import './metroPage/taipeiMetro/taipeiMetroList.dart';
 import './metroPage/kaohsiungMetro/kaohsiungMetroList.dart';
 import './taxiPage/taxiList.dart';
 import './locationPage/locationList.dart';
-// import './feedbackPage.dart';
 import './completeListPage.dart';
 import 'settingPage.dart';
 

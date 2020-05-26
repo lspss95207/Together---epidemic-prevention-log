@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
 
 import 'package:virus_tracker/locationPage/locationForm.dart';
-// import 'package:virus_tracker/feedbackPage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'globals.dart' as globals;
@@ -31,16 +30,10 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  int _currentIndex = 0;
   String language = globals.language;
-
-  HomePageState() {
-    // print(Localizations.localeOf(context));
-  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Timer.periodic(Duration(milliseconds: 100), (timer) {
       if (!mounted) return;
@@ -48,7 +41,6 @@ class HomePageState extends State<HomePage> {
         setState(() {
           allTranslations.setNewLanguage(globals.language);
           language = globals.language;
-          // print(_taxilist);
         });
       }
     });
@@ -61,8 +53,6 @@ class HomePageState extends State<HomePage> {
   // var buttonColor = Color.fromRGBO(0x00, 0xFF, 0xCC, 1);
   // var backgroundColor = Color.fromRGBO(0x00, 0x51, 0x64, 1);
   // var appbarColor = Color.fromRGBO(0x07, 0x61, 0x5B, 1);
-
-  var buttonColor = Color.fromRGBO(5, 67, 62, 1);
 
   final pages = [
     LocationList(),
@@ -286,68 +276,9 @@ class HomePageState extends State<HomePage> {
             side: BorderSide(color: Theme.of(context).dividerColor, width: 3),
           ),
           onPressed: () {
-            print(allTranslations.locale);
-            print(Localizations.localeOf(context).toString());
             Navigator.push(context,
                 MaterialPageRoute(builder: (BuildContext context) => navTo));
           }),
     );
   }
-
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text('Virus Tracker'),
-  //     ),
-  //     drawer: Drawer(
-  //         child: ListView(
-  //       children: <Widget>[
-  //         ListTile(
-  //           leading: Icon(Icons.location_on),
-  //           title: Text('Locations'),
-  //           onTap: () {
-  //             _onItemClick(0);
-  //           },
-  //         ),
-  //         ListTile(
-  //           leading: Icon(Icons.directions_railway),
-  //           title: Text('Taiwan High Speed Rail'),
-  //           onTap: () {
-  //             _onItemClick(1);
-  //           },
-  //         ),
-  //         ListTile(
-  //           leading: Icon(Icons.train),
-  //           title: Text('Taiwan Railways'),
-  //           onTap: () {
-  //             _onItemClick(2);
-  //           },
-  //         ),
-  //         ListTile(
-  //           leading: Icon(Icons.train),
-  //           title: Text('Taipei Metro'),
-  //           onTap: () {
-  //             _onItemClick(3);
-  //           },
-  //         ),
-  //         ListTile(
-  //           leading: Icon(Icons.directions_bus),
-  //           title: Text('Bus'),
-  //           onTap: () {
-  //             _onItemClick(4);
-  //           },
-  //         ),
-  //       ],
-  //     )),
-  //     body: pages[_currentIndex],
-  //   );
-  // }
-
-  // void _onItemClick(int index) {
-  //   setState(() {
-  //     _currentIndex = index;
-  //     Navigator.of(context).pop();
-  //   });
-  // }
-
 }
